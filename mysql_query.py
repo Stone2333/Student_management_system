@@ -23,6 +23,7 @@ def Select_Student_information(Student_id):
         db.close()
     return Server_content_list
 
+# 根据名字查询一个或者多个学生信息
 def Select_Student_Name(Student_name):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -60,6 +61,8 @@ def Select_All_Course_title():
     for a in All_Course_title_content_list:
         print('科目:'+ a[0] + ' 编号:'+ a [1])
 
+
+
 def Select_Course_title(Course_title):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -77,7 +80,10 @@ def Select_Course_title(Course_title):
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-    print('科目:'+ All_Course_title_content_list[0] + ' 编号:'+ All_Course_title_content_list[1])
+    try:
+        print('科目:'+ All_Course_title_content_list[0] + ' 编号:'+ All_Course_title_content_list[1])
+    except:
+        print('科目名称不存在')
 
 def Select_Course_id(Course_id):
     db = pymysql.connect(
@@ -88,7 +94,7 @@ def Select_Course_id(Course_id):
     # 获取结果为字典
     # cursor = db.cursor(pymysql.cursors.DictCursor)
     cursor = db.cursor()
-    sql = 'SELECT Course_title,Course_id FROM `subjectinfo` where Course_title = "{}"'.format(Course_id)
+    sql = 'SELECT Course_title,Course_id FROM `subjectinfo` where Course_id = "{}"'.format(Course_id)
     cursor.execute(sql)
     db.commit()
     All_Course_title_content = cursor.fetchall()
@@ -96,10 +102,13 @@ def Select_Course_id(Course_id):
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-    try:
-         print('科目:'+ All_Course_title_content_list[0] + ' 编号:'+ All_Course_title_content_list[1])
-    except:
-        return All_Course_title_content_list
+    if All_Course_title_content_list == []:
+        print('课程编号不存在')
+    else:
+        for a in All_Course_title_content_list:
+            print('科目:'+ a[0] + ' 编号:'+ a [1])
+    # print('科目:'+ All_Course_title_content_list[0] + ' 编号:'+ All_Course_title_content_list[1])
+    return All_Course_title_content_list
 
 def Select_All_Grade():
     db = pymysql.connect(
@@ -164,4 +173,4 @@ def Select_Student_name_Grade(Student_Name):
     return All_Course_title_content_list
 
 if __name__ == '__main__':
-    Select_Student_Name('张三')
+    Select_Student_Name('李四')

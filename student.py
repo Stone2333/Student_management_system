@@ -9,41 +9,56 @@ def function():
     type = input("请输入需要使用的功能序号：\n1.学生信息的增删改查\n2.科目信息的增删改查\n3.学生对应科目成绩增删改查\n0.退出\n")
     while True:
         if type == '1':
-            print('您选择了学生信息的增删改查')
-            subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.学生信息的查询\n3.学生信息的更改\n4.学生信息的删除\n0.退回主菜单\n')
-            student.student_frame(subfunction)
-
+           subfunction.student(type)
         elif type == '2':
-            print('您选择了科目信息的增删改查')
-            subfunction = input('请输入需要进行操作的序号：\n1.科目信息的新增\n2.所有科目信息的查询\n3.根据课程名称查询科目信息\n4.根据课程编号查询科目信息\n5.科目信息的更改\n4.科目信息的删除\n0.退回主菜单\n')
-            subjects.subjects_frame(subfunction)
-
+            subfunction.subjectinfo(type)
         elif type == '3':
-            print('您选择了成绩的增删改查')
-            subfunction = input('请输入需要进行操作的序号：\n1.成绩的新增\n2.成绩的查询\n3.成绩的更改\n4.成绩的删除\n0.退回主菜单退回主菜单\n')
-            grade.grade_frame(subfunction)
-
+            subfunction.grade(type)
         elif type == '0':
             quit = input('您确认要退出吗(是/否)\n')
             if quit == '是':
                 print('欢迎使用本系统，谢谢')
                 exit()
+            else:
+                function()
         else:
             print('请输入正确的功能序号')
+            function()
+
+
+
+class subfunction:
+    def student(self):
+        print('您选择了学生信息的增删改查')
+        subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.学生信息的查询\n3.学生信息的更改\n4.学生信息的删除\n0.退回主菜单\n')
+        student.student_frame(subfunction)
+
+    def subjectinfo(self):
+        print('您选择了科目信息的增删改查')
+        subfunction = input('请输入需要进行操作的序号：\n1.科目信息的新增\n2.所有科目信息的查询\n3.根据课程名称查询科目信息\n4.根据课程编号查询科目信息\n5.科目信息的更改\n6.根据科目名称删除科目信息\n7.根据科目编号删除科目信息\n0.退回主菜单\n')
+        subjects.subjects_frame(subfunction)
+
+    def grade(self):
+        print('您选择了成绩的增删改查')
+        subfunction = input('请输入需要进行操作的序号：\n1.成绩的新增\n2.成绩的查询\n3.成绩的更改\n4.成绩的删除\n0.退回主菜单退回主菜单\n')
+        grade.grade_frame(subfunction)
 
 
 class student():
 
     def student_insert(self):
-        Student_information = self.strip(',').split(',')
-        try:
-            mysql_insert.Insert_Student_information(Student_information[0], Student_information[1],Student_information[2])
-        except:
-            print('请按照规范输入学生信息')
+        if self == '0':
+            subfunction.student(self)
+        else:
+            Student_information = self.strip(',').split(',')
+            try:
+                mysql_insert.Insert_Student_information(Student_information[0], Student_information[1],Student_information[2])
+            except:
+                print('请按照规范输入学生信息')
 
     def student_query(self):
         if self == '0':
-            student.student_frame(self)
+            subfunction.student(self)
         Student_information = mysql_query.Select_Student_information(self)
         if Student_information != []:
             Student_information_str = '姓名:' + Student_information[0] + ' 学号:' + Student_information[1] + ' 性别:' + Student_information[2]
@@ -53,24 +68,26 @@ class student():
 
     def student_update(self):
         if self == '0':
-            student.student_frame(self)
-        subfunction = self.strip(',').split(',')
-        if subfunction[2] == '1':
-            mysql_update.Update_Student_name(subfunction[0], subfunction[1])
-        elif subfunction[2] == '2':
-            mysql_update.Update_Student_id(subfunction[0], subfunction[1])
-        elif subfunction[2] == '3':
-            mysql_update.Update_Gender(subfunction[0], subfunction[1])
+            subfunction.student(self)
         else:
-            print('请按照规范输入修改学生信息')
+            subfunction1 = self.strip(',').split(',')
+            if subfunction1[2] == '1':
+                mysql_update.Update_Student_name(subfunction1[0], subfunction1[1])
+            elif subfunction1[2] == '2':
+                mysql_update.Update_Student_id(subfunction1[0], subfunction1[1])
+            elif subfunction1[2] == '3':
+                mysql_update.Update_Gender(subfunction1[0], subfunction1[1])
+            else:
+              print('请按照规范输入修改学生信息')
 
     def student_delect(self):
         if self == '0':
-            student.student_frame(self)
-        try:
-            mysql_delete.Delete_Student_information(self)
-        except:
-            print('输入的学号不正确')
+            subfunction.student(self)
+        else:
+            try:
+                mysql_delete.Delete_Student_information(self)
+            except:
+                print('输入的学号不正确')
 
     def student_frame(self):
         while True:
@@ -91,51 +108,65 @@ class student():
                 function()
             else:
                 print('请输入正确的功能序号')
+                student.student_frame()
 
 class subjects:
+
     def subjects_insert(self):
         if self == '0':
-            subjects.subjects_frame()
-        Course_title = self.strip(',').split(',')
-        mysql_insert.Insert_Subjectinfo(Course_title[0], Course_title[1])
+            subfunction.subjectinfo(self)
+        else:
+            Course_title = self.strip(',').split(',')
+            mysql_insert.Insert_Subjectinfo(Course_title[0], Course_title[1])
 
     def subjects_all_query(self):
         if self == '0':
-            subjects.subjects_frame()
-        print('科目如下：')
-        mysql_query.Select_All_Course_title()
-        print('\n')
+            subfunction.subjectinfo(self)
+        else:
+            All_Course_title_content_list = mysql_query.Select_All_Course_title()
+            print(All_Course_title_content_list)
+            for a in All_Course_title_content_list:
+                print('科目:' + a[0] + ' 编号:' + a[1])
+            # mysql_query.Select_All_Course_title()
+            print('\n')
 
     def subjects_course_title_query(self):
         if self == '0':
-            subjects.subjects_frame()
-        mysql_query.Select_Course_title(self)
+            subfunction.subjectinfo(self)
+        else:
+            mysql_query.Select_Course_title(self)
+
 
     def subjects_course_id_query(self):
         if self == '0':
-            subjects.subjects_frame()
-        mysql_query.Select_Course_id(self)
+            subfunction.subjectinfo(self)
+        else:
+            mysql_query.Select_Course_id(self)
 
     def subjects_update(self):
         if self == '0':
-            subjects.subjects_frame()
-        Course_title = self.strip(',').split(',')
-        try:
-            mysql_update.Update_Course_title(Course_title[0], Course_title[1])
-        except:
-            print('请按照规范填写')
+            subfunction.subjectinfo(self)
+        else:
+            Course_title = self.strip(',').split(',')
+            try:
+                mysql_update.Update_Course_title(Course_title[0], Course_title[1])
+            except:
+                print('请按照规范填写')
 
     def subjects_course_title_delect(self):
         if self == '0':
-            subjects.subjects_frame()
-        mysql_delete.Delete_Course_title(self)
+            subfunction.subjectinfo(self)
+        else:
+            mysql_delete.Delete_Course_title(self)
 
     def subjects_course_id_delect(self):
         if self == '0':
-            subjects.subjects_frame()
-        mysql_delete.Delete_Course_id(self)
+            subfunction.subjectinfo(self)
+        else:
+            mysql_delete.Delete_Course_id(self)
 
     def subjects_frame(self):
+        while True:
             if self == '1':
                 Course_title = input('请输入您要添加的科目信息名称和课程编号用逗号分隔(输入"0"返回上一级)\n')
                 subjects.subjects_insert(Course_title)
@@ -162,7 +193,7 @@ class subjects:
                 subjects.subjects_course_title_delect(Course_title)
 
             elif self == '7':
-                Course_id = input('请输入需要删除的科目名称(输入"0"返回上一级)\n')
+                Course_id = input('请输入需要删除的科目编号(输入"0"返回上一级)\n')
                 subjects.subjects_course_id_delect(Course_id)
 
             elif self == '0':
@@ -170,66 +201,75 @@ class subjects:
                 function()
             else:
                 print('请输入正确的功能序号')
+                subjects.subjects_frame()
+
 
 class grade:
     def grade_insert(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = self.strip(',').split(',')
-        try:
-            mysql_insert.Insert_Grade_table(Grade[0], Grade[1], Grade[2])
-        except:
-            print('请按照规范输入')
+            subfunction.grade(self)
+        else:
+            Grade = self.strip(',').split(',')
+            try:
+                mysql_insert.Insert_Grade_table(Grade[0], Grade[1], Grade[2])
+            except:
+                print('请按照规范输入')
 
 
     def grade_all_query(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = mysql_query.Select_All_Grade()
-        for a in Grade:
-            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
+            subfunction.grade(self)
+        else:
+            Grade = mysql_query.Select_All_Grade()
+            for a in Grade:
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
 
     def grade_student_id_query(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = mysql_query.Select_Student_id_Grade(self)
-        for a in Grade:
-            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
+            subfunction.grade(self)
+        else:
+            Grade = mysql_query.Select_Student_id_Grade(self)
+            for a in Grade:
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
 
     def grade_student_name_query(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = mysql_query.Select_Student_name_Grade(self)
-        for a in Grade:
-            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
+            subfunction.grade(self)
+        else:
+            Grade = mysql_query.Select_Student_name_Grade(self)
+            for a in Grade:
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 科目:' + a[2] + ' 成绩:' + a[3])
 
     def grade_student_id_update(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = self.strip(',').split(',')
-        try:
-            if Grade[3] == '1':
-                mysql_update.Update_Grade_student_id(Grade[0], Grade[1])
-            elif Grade[3] == '2':
-                mysql_update.Update_Grade_course_id(Grade[0], Grade[1])
-            elif Grade[3] == '3':
-                mysql_update.Update_Grade_grade(Grade[0], Grade[1])
-            else:
-                print("请选择正确的类型")
-        except:
-            print('请按照规范输入')
+            subfunction.grade(self)
+        else:
+            Grade = self.strip(',').split(',')
+            try:
+                if Grade[3] == '1':
+                    mysql_update.Update_Grade_student_id(Grade[0], Grade[1])
+                elif Grade[3] == '2':
+                    mysql_update.Update_Grade_course_id(Grade[0], Grade[1])
+                elif Grade[3] == '3':
+                    mysql_update.Update_Grade_grade(Grade[0], Grade[1])
+                else:
+                    print("请选择正确的类型")
+            except:
+                print('请按照规范输入')
 
     def grade_student_id_delete(self):
         if self == '0':
-            grade.grade_frame()
-        Grade = self.strip(',').split(',')
-        try:
-            mysql_delete.Delete_Grade(Grade[0], Grade[1])
-        except:
-            print('请按照规范输入')
+            subfunction.grade(self)
+        else:
+            Grade = self.strip(',').split(',')
+            try:
+                mysql_delete.Delete_Grade(Grade[0], Grade[1])
+            except:
+                print('请按照规范输入')
 
 
     def grade_frame(self):
+        while True:
             if self == '1':
                 Grade = input('请输入需要新增成绩信息的学号科目编号和成绩用逗号分隔(输入"0"返回上一级)\n')
                 grade.grade_insert(Grade)
@@ -253,6 +293,7 @@ class grade:
 
             else:
                 print('请输入正确的功能序号')
+                grade.grade_frame()
 #
 if __name__ == '__main__':
     function()
