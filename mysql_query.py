@@ -23,6 +23,25 @@ def Select_Student_information(Student_id):
         db.close()
     return Server_content_list
 
+# 查询所有学生信息展示
+def Select_Student_all():
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT Student_name,Student_id,Gender FROM `Student_information`'
+    cursor.execute(sql)
+    db.commit()
+    Server_content =cursor.fetchall()
+    # 将元组转换成列表
+    Server_content_list = list(Server_content)
+    cursor.close()
+    db.close()
+    return Server_content_list
+
+
 # 根据名字查询一个或者多个学生信息
 def Select_Student_Name(Student_name):
     db = pymysql.connect(
@@ -59,8 +78,8 @@ def Select_All_Course_title():
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-    for a in All_Course_title_content_list:
-        print('科目:'+ a[0] + ' 编号:'+ a [1])
+    # for a in All_Course_title_content_list:
+    #     print('科目:'+ a[0] + ' 编号:'+ a [1])
     return All_Course_title_content_list
 
 
@@ -122,7 +141,6 @@ def Select_Course_id(Course_id):
     All_Course_title_content = cursor.fetchall()
     # 讲遍历出的内容拼接成列表
     All_Course_title_content_list = list(All_Course_title_content)
-    print(All_Course_title_content_list)
     cursor.close()
     db.close()
     # if All_Course_title_content_list == []:
@@ -173,7 +191,7 @@ def Select_Student_id_Grade(Student_id):
     All_Course_title_content_list = list(All_Course_title_content)
     return All_Course_title_content_list
 
-# 根据学生姓名查询学生信息
+# 根据学生姓名查询学生成绩
 def Select_Student_name_Grade(Student_Name):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -184,7 +202,7 @@ def Select_Student_name_Grade(Student_Name):
     # cursor = db.cursor(pymysql.cursors.DictCursor)
     cursor = db.cursor()
     # sql = 'SELECT Student_id,Course_title,Grade FROM `grade_table` WHERE  Student_id = "{}"'.format(Student_id)
-    sql = 'select student_information.Student_Name,grade_table.Student_id,subjectinfo.Course_title,grade_table.Grade from student_information left join grade_table on student_information.Student_id=grade_table.Student_id left join  subjectinfo on grade_table.Course_id=subjectinfo.Course_id WHERE grade_table.Student_Name = "{}"'.format(Student_Name)
+    sql = 'select student_information.Student_Name,grade_table.Student_id,subjectinfo.Course_title,grade_table.Grade from student_information left join grade_table on student_information.Student_id=grade_table.Student_id left join  subjectinfo on grade_table.Course_id=subjectinfo.Course_id WHERE student_information.Student_Name = "{}"'.format(Student_Name)
     cursor.execute(sql)
     db.commit()
     All_Course_title_content = cursor.fetchall()
@@ -193,4 +211,4 @@ def Select_Student_name_Grade(Student_Name):
     return All_Course_title_content_list
 
 if __name__ == '__main__':
-    Select_Course_title_id('语文')
+    Select_Student_all()

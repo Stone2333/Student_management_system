@@ -43,7 +43,7 @@ def Delete_Course_id(Course_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    id = mysql_query.Select_Course_title(Course_id)
+    id = mysql_query.Select_Course_id(Course_id)
     if id == []:
         print('该科目编号不存在')
     else:

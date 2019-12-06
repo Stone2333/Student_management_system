@@ -30,17 +30,17 @@ def function():
 class subfunction:
     def student(self):
         print('您选择了学生信息的增删改查')
-        subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.根据学号查询学生信息\n3.根据名字查询学生信息\n4.学生信息的更改\n5.学生信息的删除\n0.退回主菜单\n')
+        subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.所有学生信息\n3.根据学号查询学生信息\n4.根据名字查询学生信息\n5.学生信息的更改\n6.学生信息的删除\n0.退回主菜单\n')
         student.student_frame(subfunction)
 
     def subjectinfo(self):
-        print('您选择了科目信息的增删改查')
+        print('您选择了科目信息的增删改查')  # 科目信息修改还差 根据编号改名称 和根据名称改编号
         subfunction = input('请输入需要进行操作的序号：\n1.科目信息的新增\n2.所有科目信息的查询\n3.根据课程名称查询科目信息\n4.根据课程编号查询科目信息\n5.科目信息的更改\n6.根据科目名称删除科目信息\n7.根据科目编号删除科目信息\n0.退回主菜单\n')
         subjects.subjects_frame(subfunction)
 
     def grade(self):
         print('您选择了成绩的增删改查')
-        subfunction = input('请输入需要进行操作的序号：\n1.成绩的新增\n2.成绩的查询\n3.成绩的更改\n4.成绩的删除\n0.退回主菜单退回主菜单\n')
+        subfunction = input('请输入需要进行操作的序号：\n1.成绩的新增\n2.查询所有学生成绩\n3.根据学号查询成绩\n4.根据学生姓名查询成绩\n5.成绩的更改\n6.成绩的删除\n0.退回主菜单退回主菜单\n')
         grade.grade_frame(subfunction)
 
 # 学生类
@@ -55,6 +55,15 @@ class student():
                 mysql_insert.Insert_Student_information(Student_information[0], Student_information[1],Student_information[2])
             except:
                 print('请按照规范输入学生信息')
+
+    def student_all(self):
+        if self == '0':
+            subfunction.student(self)
+        Student_information = mysql_query.Select_Student_all()
+        for a in Student_information:
+            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
+
+
 
     # 根据学生学号查询学生信息显示 姓名，学号，性别
     def student_query(self):
@@ -76,7 +85,7 @@ class student():
             for a in Student_information:
                 print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
         elif Student_information == []:
-            print('学号不存在')
+            print('姓名不存在')
 
     # 根据学生学号 修改 姓名，学号，性别
     def student_update(self):
@@ -112,18 +121,23 @@ class student():
                 student.student_insert(Student_information)
 
             elif self == '2':
+                print('所有学生信息如下')
+                student.student_all(self)
+                subfunction.student(self)
+
+            elif self == '3':
                 Student_information = input('请输入需要查询学生信息的学号(输入"0"返回上一级)\n')
                 student.student_query(Student_information)
 
-            elif self == '3':
+            elif self == '4':
                 Student_information = input('请输入需要查询学生信息的姓名(输入"0"返回上一级)\n')
                 student.student_name_query(Student_information)
 
-            elif self == '4':
+            elif self == '5':
                 Student_information = input('请输入修改信息的学号和新值并选择修改类型用逗号分割1.姓名2.学号3.性别(输入"0"返回上一级)\n')
                 student.student_update(Student_information)
 
-            elif self == '5':
+            elif self == '6':
                 Student_information = input('请输入删除学生信息的学号(输入"0"返回上一级)\n')
                 student.student_delect(Student_information)
 
@@ -156,7 +170,7 @@ class subjects:
             All_Course_title_content_list = mysql_query.Select_All_Course_title()
             for a in All_Course_title_content_list:
                 print('科目:' + a[0] + ' 编号:' + a[1])
-            mysql_query.Select_All_Course_title()
+
             # print('\n')
 
     # 根据科目名称查询科目名称和科目编号
@@ -218,7 +232,10 @@ class subjects:
         if self == '0':
             subfunction.subjectinfo(self)
         else:
-            mysql_delete.Delete_Course_id(self)
+            try:
+                mysql_delete.Delete_Course_id(self)
+            except:
+                print('请输入正确序号')
 
     # 三级模块
     def subjects_frame(self):
@@ -306,11 +323,11 @@ class grade:
         else:
             Grade = self.strip(',').split(',')
             try:
-                if Grade[3] == '1':
+                if Grade[2] == '1':
                     mysql_update.Update_Grade_student_id(Grade[0], Grade[1])
-                elif Grade[3] == '2':
+                elif Grade[2] == '2':
                     mysql_update.Update_Grade_course_id(Grade[0], Grade[1])
-                elif Grade[3] == '3':
+                elif Grade[2] == '3':
                     mysql_update.Update_Grade_grade(Grade[0], Grade[1])
                 else:
                     print("请选择正确的类型")
@@ -336,14 +353,23 @@ class grade:
                 grade.grade_insert(Grade)
 
             elif self == '2':
+                print('所有学生成绩如下:')
+                grade.grade_all_query(self)
+                subfunction.grade(self)
+
+            elif self == '3':
                 Grade = input('请输入需要查询成绩的学号(输入"0"返回上一级)')
                 grade.grade_student_id_query(Grade)
 
-            elif self == '3':
+            elif self == '4':
+                Grade = input('请输入需要查询成绩的姓名(输入"0"返回上一级)')
+                grade.grade_student_name_query(Grade)
+
+            elif self == '5':
                 Grade = input('请输入修改信息的学号和新值并选择修改类型用逗号分割1.学号2.科目编号3.成绩(输入"0"返回上一级)\n')
                 grade.grade_student_id_update(Grade)
 
-            elif self == '4':
+            elif self == '6':
                 Grade = input('请输入需要删除成绩的学号和科目用逗号分隔(输入"0"返回上一级)\n')
                 grade.grade_student_id_delete(Grade)
 

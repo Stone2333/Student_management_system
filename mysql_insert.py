@@ -27,12 +27,16 @@ def Insert_Subjectinfo(Course_title,Course_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'INSERT INTO `Subjectinfo` (Course_title,Course_id) VALUES ("{}","{}") '.format(Course_title, Course_id)
-    cursor.execute(sql)
-    db.commit()
-    cursor.close()
-    db.close()
-    print("新增"+Course_title+'科目信息成功')
+    try:
+        sql = 'INSERT INTO `Subjectinfo` (Course_title,Course_id) VALUES ("{}","{}") '.format(Course_title, Course_id)
+        cursor.execute(sql)
+        db.commit()
+        cursor.close()
+        db.close()
+        print("新增" + Course_title + '科目信息成功')
+    except:
+        print('编号已存在')
+
 
 # 插入成绩信息到成绩表 输入课程编号
 def Insert_Grade_id(Student_id, Course_id, Grade):
