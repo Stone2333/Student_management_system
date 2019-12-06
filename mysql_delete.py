@@ -1,6 +1,6 @@
 import pymysql
 import mysql_query
-
+# 根据学号删除学生表信息
 def Delete_Student_information(Student_id):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -8,17 +8,14 @@ def Delete_Student_information(Student_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    id = mysql_query.Query_Student_information(Student_id)
-    if id == []:
-        print('该学号不存在')
-    else:
-        sql = 'DELETE FROM `Student_information` WHERE Student_id = "{}"'.format(Student_id)
-        cursor.execute(sql)
-        db.commit()
-        cursor.close()
-        db.close()
-        print("删除"+Student_id+'学生信息成功')
+    sql = 'DELETE FROM `Student_information` WHERE Student_id = "{}"'.format(Student_id)
+    cursor.execute(sql)
+    db.commit()
+    cursor.close()
+    db.close()
+    print("删除"+Student_id+'学生信息成功')
 
+# 根据课程名称删除科目信息
 def Delete_Course_title(Course_title):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -37,6 +34,8 @@ def Delete_Course_title(Course_title):
         db.close()
         print("删除"+Course_title+'科目信息成功')
 
+
+# 根据课程编号删除科目信息
 def Delete_Course_id(Course_id):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -55,6 +54,7 @@ def Delete_Course_id(Course_id):
         db.close()
         print("删除编号"+Course_id+'科目信息成功')
 
+# 根据学号和课程编号删除成绩表成绩
 def Delete_Grade(Student_id,Course_title):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -62,7 +62,7 @@ def Delete_Grade(Student_id,Course_title):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    id = mysql_query.Query_Student_information(Student_id)
+    id = mysql_query.Select_Student_information(Student_id)
     course = mysql_query.Select_Course_title(Course_title)
     if id == []:
         print('该学号不存在')
