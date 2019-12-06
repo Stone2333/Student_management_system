@@ -154,9 +154,9 @@ class subjects:
             subfunction.subjectinfo(self)
         else:
             All_Course_title_content_list = mysql_query.Select_All_Course_title()
-            # for a in All_Course_title_content_list:
-            #     print('科目:' + a[0] + ' 编号:' + a[1])
-            # mysql_query.Select_All_Course_title()
+            for a in All_Course_title_content_list:
+                print('科目:' + a[0] + ' 编号:' + a[1])
+            mysql_query.Select_All_Course_title()
             # print('\n')
 
     # 根据科目名称查询科目名称和科目编号
