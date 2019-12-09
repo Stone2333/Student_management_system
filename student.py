@@ -52,10 +52,11 @@ class student():
         else:
             Student_information = self.strip(',').split(',')
             try:
-                mysql_insert.Insert_Student_information(Student_information[0], Student_information[1],Student_information[2])
+                mysql_insert.Insert_Student_information(Student_information[0], Student_information[1], Student_information[2])
             except:
                 print('请按照规范输入学生信息')
 
+    # 所有学生信息
     def student_all(self):
         if self == '0':
             subfunction.student(self)
@@ -63,6 +64,10 @@ class student():
         for a in Student_information:
             print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
 
+    # 总人数
+    def student_total_people(self):
+        total_people = str(mysql_query.Select_Student_total_people())
+        print('总人数:'+ total_people)
 
 
     # 根据学生学号查询学生信息显示 姓名，学号，性别
@@ -141,13 +146,18 @@ class student():
                 Student_information = input('请输入删除学生信息的学号(输入"0"返回上一级)\n')
                 student.student_delect(Student_information)
 
+            elif self == '7':
+                print('学生人数如下')
+                student.student_total_people(self)
+                subfunction.student(self)
+
             elif self == '0':
                 print('退回上一级')
                 function()
 
             else:
                 print('请输入正确的功能序号')
-                student.student_frame()
+                subfunction.student(self)
 
 # 科目信息类
 class subjects:
@@ -272,9 +282,10 @@ class subjects:
             elif self == '0':
                 print('退回主菜单')
                 function()
+
             else:
                 print('请输入正确的功能序号')
-                subjects.subjects_frame()
+                subfunction.subjectinfo(self)
 
 # 成绩类
 class grade:
@@ -373,14 +384,13 @@ class grade:
                 Grade = input('请输入需要删除成绩的学号和科目用逗号分隔(输入"0"返回上一级)\n')
                 grade.grade_student_id_delete(Grade)
 
-
             elif self == '0':
                 print('退回主菜单')
                 function()
 
             else:
                 print('请输入正确的功能序号')
-                grade.grade_frame()
+                subfunction.grade(self)
 #
 if __name__ == '__main__':
     function()

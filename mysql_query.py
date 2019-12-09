@@ -1,5 +1,24 @@
 import pymysql
 
+
+def Select_Student_total_people():
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT COUNT(*) FROM student_information'
+    cursor.execute(sql)
+    db.commit()
+    Server_content =cursor.fetchall()
+    # 将元组转换成列表
+    Server_content_list = list(Server_content[0])[0]
+    cursor.close()
+    db.close()
+    return Server_content_list
+
+
 # 根据学号查询学生信息
 def Select_Student_information(Student_id):
     db = pymysql.connect(
