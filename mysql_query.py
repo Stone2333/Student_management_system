@@ -1,6 +1,6 @@
 import pymysql
 
-
+# 查询学生总人数
 def Select_Student_total_people():
     db = pymysql.connect(
         host="127.0.0.1",
@@ -42,6 +42,10 @@ def Select_Student_information(Student_id):
         db.close()
     return Server_content_list
 
+
+
+
+
 # 查询所有学生信息展示
 def Select_Student_all():
     db = pymysql.connect(
@@ -77,6 +81,19 @@ def Select_Student_Name(Student_name):
     # for a in student:
     #     print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
     return student
+
+# 根据地区查询
+
+
+# 根据性别查询
+
+
+# 根据年龄查询
+
+
+# 根据院系查询
+
+
 
 
 # 查询所有科目信息
