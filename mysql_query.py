@@ -78,17 +78,68 @@ def Select_Student_Name(Student_name):
     return student
 
 # 根据地区查询
-
+def Select_Student_address(address):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE address like "%{}%"'.format(
+        address)
+    cursor.execute(sql)
+    db.commit()
+    Server_content = cursor.fetchall()
+    student = list(Server_content)
+    return student
 
 # 根据性别查询
-
+def Select_Student_gender(gender):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE gender = "{}"'.format(
+        gender)
+    cursor.execute(sql)
+    db.commit()
+    Server_content = cursor.fetchall()
+    student = list(Server_content)
+    return student
 
 # 根据年龄查询
-
+def Select_Student_age(age):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE age = "2019-{}"'.format(
+        age)
+    cursor.execute(sql)
+    db.commit()
+    Server_content = cursor.fetchall()
+    student = list(Server_content)
+    return student
 
 # 根据院系查询
-
-
+def Select_Student_departments(departments):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE departments = "{}"'.format(
+        departments)
+    cursor.execute(sql)
+    db.commit()
+    Server_content = cursor.fetchall()
+    student = list(Server_content)
+    return student
 
 
 # 查询所有科目信息
@@ -233,4 +284,4 @@ def Select_Student_name_Grade(Student_Name):
     return All_Course_title_content_list
 
 if __name__ == '__main__':
-    Select_Student_all()
+    Select_Student_address('成都')
