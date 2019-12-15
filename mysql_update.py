@@ -46,6 +46,53 @@ def Update_Gender(Student_id,New_Gender):
     db.close()
     print('学号:'+ Student_id + '性别修改成功')
 
+
+
+def Update_birth(Student_id,New_birth):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'UPDATE `Student_information` set birth = "{b}" where Student_id = "{a}"'.format(a=Student_id, b=New_birth)
+    cursor.execute(sql)
+    db.commit()
+    cursor.close()
+    db.close()
+    print('学号:'+ Student_id + '年月日修改成功')
+
+def Update_departments(Student_id,New_departments):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'UPDATE `Student_information` set departments = "{b}" where Student_id = "{a}"'.format(a=Student_id, b=New_departments)
+    cursor.execute(sql)
+    db.commit()
+    cursor.close()
+    db.close()
+    print('学号:'+ Student_id + '院系修改成功')
+
+def Update_address(Student_id,New_address):
+    db = pymysql.connect(
+        host="127.0.0.1",
+        user="root",
+        password="123456",
+        db="student_practice")
+    cursor = db.cursor()
+    sql = 'UPDATE `Student_information` set address = "{b}" where Student_id = "{a}"'.format(a=Student_id, b=New_address)
+    cursor.execute(sql)
+    db.commit()
+    cursor.close()
+    db.close()
+    print('学号:'+ Student_id + '地址修改成功')
+
+
+
+
 # 根据科目名称更改课程名称
 def Update_Course_title(Course_title,New_Course_title):
     db = pymysql.connect(

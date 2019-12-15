@@ -3,6 +3,9 @@ id int auto_increment primary key,
 Student_Name varchar(20) not null,
 Student_id varchar(100) not null unique,
 Gender varchar(20) not null,
+birth year,
+departments varchar(50) not null,
+address varchar(50) not null,
 update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 INDEX(Student_id)
 )ENGINE=INNODB charset=utf8;

@@ -27,7 +27,7 @@ def Select_Student_information(Student_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT Student_name,Student_id,Gender FROM `Student_information` WHERE Student_id = "{}"'.format(Student_id)
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE Student_id = "{}"'.format(Student_id)
     cursor.execute(sql)
     db.commit()
     Server_content =cursor.fetchall()
@@ -43,9 +43,6 @@ def Select_Student_information(Student_id):
     return Server_content_list
 
 
-
-
-
 # 查询所有学生信息展示
 def Select_Student_all():
     db = pymysql.connect(
@@ -54,7 +51,7 @@ def Select_Student_all():
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT Student_name,Student_id,Gender FROM `Student_information`'
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information`'
     cursor.execute(sql)
     db.commit()
     Server_content =cursor.fetchall()
@@ -73,13 +70,11 @@ def Select_Student_Name(Student_name):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT Student_name,Student_id,Gender FROM `Student_information` WHERE Student_name = "{}"'.format(Student_name)
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE Student_name = "{}"'.format(Student_name)
     cursor.execute(sql)
     db.commit()
     Server_content =cursor.fetchall()
     student = list(Server_content)
-    # for a in student:
-    #     print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
     return student
 
 # 根据地区查询
@@ -114,8 +109,6 @@ def Select_All_Course_title():
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-    # for a in All_Course_title_content_list:
-    #     print('科目:'+ a[0] + ' 编号:'+ a [1])
     return All_Course_title_content_list
 
 
@@ -137,7 +130,6 @@ def Select_Course_title(Course_title):
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-
     return All_Course_title_content_list
 
 # 根据课程名称查询课程编号
@@ -179,12 +171,6 @@ def Select_Course_id(Course_id):
     All_Course_title_content_list = list(All_Course_title_content)
     cursor.close()
     db.close()
-    # if All_Course_title_content_list == []:
-    #     print('课程编号不存在')
-    # else:
-    #     for a in All_Course_title_content_list:
-    #         print('科目:'+ a[0] + ' 编号:'+ a [1])
-    # print('科目:'+ All_Course_title_content_list[0] + ' 编号:'+ All_Course_title_content_list[1])
     return All_Course_title_content_list
 
 

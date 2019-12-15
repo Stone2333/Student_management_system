@@ -52,7 +52,7 @@ class student():
         else:
             Student_information = self.strip(',').split(',')
             try:
-                mysql_insert.Insert_Student_information(Student_information[0], Student_information[1], Student_information[2])
+                mysql_insert.Insert_Student_information(Student_information[0], Student_information[1], Student_information[2],Student_information[3], Student_information[4], Student_information[5])
             except:
                 print('请按照规范输入学生信息')
 
@@ -62,7 +62,7 @@ class student():
             subfunction.student(self)
         Student_information = mysql_query.Select_Student_all()
         for a in Student_information:
-            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
+            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
 
     # 总人数
     def student_total_people(self):
@@ -76,7 +76,7 @@ class student():
             subfunction.student(self)
         Student_information = mysql_query.Select_Student_information(self)
         if Student_information != []:
-            Student_information_str = '姓名:' + Student_information[0] + ' 学号:' + Student_information[1] + ' 性别:' + Student_information[2]
+            Student_information_str = '姓名:' + Student_information[0] + ' 学号:' + Student_information[1] + ' 性别:' +  Student_information[2] + ' 出生年月:' + str( Student_information[3]) + ' 院系:' +Student_information[4] + ' 地址:' + Student_information[5]
             print(Student_information_str)
         elif Student_information == []:
             print('学号不存在')
@@ -88,7 +88,7 @@ class student():
         Student_information = mysql_query.Select_Student_Name(self)
         if Student_information != []:
             for a in Student_information:
-                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2])
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
         elif Student_information == []:
             print('姓名不存在')
 
@@ -99,12 +99,18 @@ class student():
         else:
             try:
                 subfunction1 = self.strip(',').split(',')
-                if subfunction1[2] == '1':
+                if subfunction1[2] == '姓名':
                     mysql_update.Update_Student_name(subfunction1[0], subfunction1[1])
-                elif subfunction1[2] == '2':
+                elif subfunction1[2] == '学号':
                     mysql_update.Update_Student_id(subfunction1[0], subfunction1[1])
-                elif subfunction1[2] == '3':
+                elif subfunction1[2] == '性别':
                     mysql_update.Update_Gender(subfunction1[0], subfunction1[1])
+                elif subfunction1[2] == '年月日':
+                    mysql_update.Update_birth(subfunction1[0], subfunction1[1])
+                elif subfunction1[2] == '院系':
+                    mysql_update.Update_departments(subfunction1[0], subfunction1[1])
+                elif subfunction1[2] == '地址':
+                    mysql_update.Update_address(subfunction1[0], subfunction1[1])
             except:
               print('请按照规范输入修改学生信息')
 
@@ -122,7 +128,7 @@ class student():
     def student_frame(self):
         while True:
             if self == '1':
-                Student_information = input('请依次输入学生姓名，学号，性别，并用逗号分隔(输入"0"返回上一级)\n')
+                Student_information = input('请依次输入学生姓名，学号，性别，出生年,院系，地址并用逗号分隔(输入"0"返回上一级)\n')
                 student.student_insert(Student_information)
 
             elif self == '2':

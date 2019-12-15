@@ -2,7 +2,7 @@ import pymysql
 import mysql_query
 
 # 插入学生信息到学生表
-def Insert_Student_information(Student_Name, Student_id, Gender):
+def Insert_Student_information(Student_Name, Student_id, Gender,birth,departments,address):
     db = pymysql.connect(
         host="127.0.0.1",
         user="root",
@@ -10,7 +10,7 @@ def Insert_Student_information(Student_Name, Student_id, Gender):
         db="student_practice")
     cursor = db.cursor()
     try:
-        sql = 'INSERT INTO `Student_information` (Student_Name, Student_id, Gender) VALUES ("{}","{}","{}") '.format(Student_Name, Student_id, Gender)
+        sql = 'INSERT INTO `Student_information` (Student_Name, Student_id, Gender,birth,departments,address) VALUES ("{}","{}","{}","{}","{}","{}") '.format(Student_Name, Student_id, Gender, birth, departments, address)
         cursor.execute(sql)
         db.commit()
         cursor.close()
