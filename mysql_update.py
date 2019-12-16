@@ -47,7 +47,7 @@ def Update_Gender(Student_id,New_Gender):
     print('学号:'+ Student_id + '性别修改成功')
 
 
-
+# 根据学号更改年月
 def Update_birth(Student_id,New_birth):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -62,6 +62,8 @@ def Update_birth(Student_id,New_birth):
     db.close()
     print('学号:'+ Student_id + '年月日修改成功')
 
+
+# 根据学号更改院系
 def Update_departments(Student_id,New_departments):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -76,6 +78,7 @@ def Update_departments(Student_id,New_departments):
     db.close()
     print('学号:'+ Student_id + '院系修改成功')
 
+# 根据学号更改地址
 def Update_address(Student_id,New_address):
     db = pymysql.connect(
         host="127.0.0.1",
@@ -89,8 +92,6 @@ def Update_address(Student_id,New_address):
     cursor.close()
     db.close()
     print('学号:'+ Student_id + '地址修改成功')
-
-
 
 
 # 根据科目名称更改课程名称

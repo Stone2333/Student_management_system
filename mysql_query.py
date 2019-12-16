@@ -117,7 +117,8 @@ def Select_Student_age(age):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE age = "2019-{}"'.format(
+
+    sql = 'SELECT Student_Name, Student_id, Gender,birth,departments,address FROM `Student_information` WHERE birth = 2019-"{}"'.format(
         age)
     cursor.execute(sql)
     db.commit()
@@ -283,5 +284,6 @@ def Select_Student_name_Grade(Student_Name):
     All_Course_title_content_list = list(All_Course_title_content)
     return All_Course_title_content_list
 
-if __name__ == '__main__':
-    Select_Student_address('成都')
+# if __name__ == '__main__':
+#     Select_Student_address('成都')
+

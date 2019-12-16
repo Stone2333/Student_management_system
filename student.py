@@ -30,7 +30,7 @@ def function():
 class subfunction:
     def student(self):
         print('您选择了学生信息的增删改查')
-        subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.所有学生信息\n3.根据学号查询学生信息\n4.根据名字查询学生信息\n5.学生信息的更改\n6.学生信息的删除\n0.退回主菜单\n')
+        subfunction = input('请输入需要进行操作的序号：\n1.学生信息的新增\n2.所有学生信息\n3.根据学号查询学生信息\n4.根据名字查询学生信息\n5.根据地区查询学生信息\n6.根据性别查询学生信息\n7.根据年龄查询学生信息\n8.根据院系查询学生信息\n9.学生信息的更改\n10.学生信息的删除\n11.学生总人数\n0.退回主菜单\n')
         student.student_frame(subfunction)
 
     def subjectinfo(self):
@@ -67,7 +67,7 @@ class student():
     # 总人数
     def student_total_people(self):
         total_people = str(mysql_query.Select_Student_total_people())
-        print('总人数:'+ total_people)
+        print('总人数:'+ total_people + '\n')
 
 
     # 根据学生学号查询学生信息显示 姓名，学号，性别
@@ -91,6 +91,56 @@ class student():
                 print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
         elif Student_information == []:
             print('姓名不存在')
+
+
+    # 根据地区查询学生信息
+    def student_address(self):
+        if self == '0':
+            subfunction.student(self)
+        Student_information = mysql_query.Select_Student_address(self)
+        if Student_information != []:
+            for a in Student_information:
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
+        elif Student_information == []:
+            print('地区不存在')
+
+
+    # 根据性别查询学生信息
+    def student_gender(self):
+        if self == '0':
+            subfunction.student(self)
+        Student_information = mysql_query.Select_Student_gender(self)
+        if Student_information != []:
+            for a in Student_information:
+                print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
+        elif Student_information == []:
+            print('请输入正确的性别')
+
+
+    # 根据年龄查询学生信息
+    def student_age(self):
+        if self == '0':
+            subfunction.student(self)
+        Student_information = mysql_query.Select_Student_age(self)
+        if Student_information != []:
+            for a in Student_information:
+                print(
+                    '姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
+        elif Student_information == []:
+            print('请输入正确的年份')
+
+    # 根据院系查询学生信息
+    def student_departments(self):
+        if self == '0':
+            subfunction.student(self)
+        Student_information = mysql_query.Select_Student_departments(self)
+        if Student_information != []:
+            for a in Student_information:
+                print(
+                    '姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
+        elif Student_information == []:
+            print('请输入正确的院系')
+
 
     # 根据学生学号 修改 姓名，学号，性别
     def student_update(self):
@@ -145,14 +195,30 @@ class student():
                 student.student_name_query(Student_information)
 
             elif self == '5':
-                Student_information = input('请输入修改信息的学号和新值并选择修改类型用逗号分割1.姓名2.学号3.性别(输入"0"返回上一级)\n')
-                student.student_update(Student_information)
+                Student_information = input('请输入需要查询学生信息的地区(输入"0"返回上一级)\n')
+                student.student_address(Student_information)
 
             elif self == '6':
+                Student_information = input('请输入需要查询学生信息的性别(输入"0"返回上一级)\n')
+                student.student_gender(Student_information)
+
+            elif self == '7':
+                Student_information = input('请输入需要查询学生信息的年龄(输入"0"返回上一级)\n')
+                student.student_age(Student_information)
+
+            elif self == '8':
+                Student_information = input('请输入需要查询学生信息的院系(输入"0"返回上一级)\n')
+                student.student_departments(Student_information)
+
+            elif self == '9':
+                Student_information = input('请输入修改信息的学号和新值并选择修改类型姓名、学号、性别用逗号分割(输入"0"返回上一级)\n')
+                student.student_update(Student_information)
+
+            elif self == '10':
                 Student_information = input('请输入删除学生信息的学号(输入"0"返回上一级)\n')
                 student.student_delect(Student_information)
 
-            elif self == '7':
+            elif self == '11':
                 print('学生人数如下')
                 student.student_total_people(self)
                 subfunction.student(self)
