@@ -1,30 +1,25 @@
-create table Student_information(
-id int auto_increment primary key,
-Student_Name varchar(20) not null,
-Student_id varchar(100) not null unique,
+create table student_information(
+student_id varchar(100) not null primary key,
+student_name varchar(20) not null,
 Gender varchar(20) not null,
 birth year,
 departments varchar(50) not null,
 address varchar(50) not null,
-update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-INDEX(Student_id)
+update_time timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB charset=utf8;
 
 
-create table Subjectinfo(
-id int auto_increment primary key,
-Course_title varchar(20) not null,
-Course_id varchar(20) not null unique,
-update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-INDEX(Course_id)
+create table course(
+course_id varchar(20) not null primary key,
+course_title varchar(20) not null,
+update_time timestamp not null DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB charset=utf8;
 
 
-create table Grade_table(
-id int auto_increment primary key,
-Student_id varchar(20) not null ,
-Course_id varchar(20) not null,
-Grade varchar(20) not null,
+create table grade_table(
+student_id varchar(20) not null,
+course_id varchar(20) not null,
+grade varchar(20) not null,
 update_time timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 )ENGINE=INNODB charset=utf8;
 
