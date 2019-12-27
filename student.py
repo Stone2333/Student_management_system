@@ -66,8 +66,8 @@ class Student():
         if self == '0':
             subfunction.student(self)
         student_information = mysql_query.select_student_all()
-        for a in student_information:
-            print('姓名:' + a[0] + ' 学号:' + a[1] + ' 性别:' + a[2] + ' 出生年月:' + str(a[3]) + ' 院系:' + a[4] + ' 地址:' + a[5])
+        for student_list in student_information:
+            print('姓名:' + student_list[0] + ' 学号:' + student_list[1] + ' 性别:' + student_list[2] + ' 出生年月:' + str(student_list[3]) + ' 院系:' + student_list[4] + ' 地址:' + student_list[5])
 
     # 总人数
     def student_total_people(self):
@@ -78,7 +78,7 @@ class Student():
     def student_query(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_information(self)[0]
+        student_information = mysql_query.select_student_information(self)
         if student_information == []:
             print('学号不存在')
         else:
@@ -89,7 +89,7 @@ class Student():
     def student_name_query(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_name(self)[0]
+        student_information = mysql_query.select_student_name(self)
         if student_information == []:
             print('姓名不存在')
         else:
@@ -100,18 +100,19 @@ class Student():
     def student_address(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_address(self)[0]
+        student_information = mysql_query.select_student_address(self)
         if student_information == []:
             print('地区不存在')
         else:
             for student_list in student_information:
+                print(student_list)
                 print('姓名:' + student_list[0] + ' 学号:' + student_list[1] + ' 性别:' + student_list[2] + ' 出生年月:' + str(student_list[3]) + ' 院系:' + student_list[4] + ' 地址:' + student_list[5])
 
     # 根据性别查询学生信息
     def student_gender(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_gender(self)[0]
+        student_information = mysql_query.select_student_gender(self)
         if student_information == []:
             print('请输入正确的性别')
         else:
@@ -122,7 +123,7 @@ class Student():
     def student_age(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_age(self)[0]
+        student_information = mysql_query.select_student_age(self)
         if student_information == []:
             print('该年龄段的学生信息暂无')
         else:
@@ -133,7 +134,7 @@ class Student():
     def student_departments(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_departments(self)[0]
+        student_information = mysql_query.select_student_departments(self)
         if student_information == []:
             print('请输入正确的院系')
         else:
