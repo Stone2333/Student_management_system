@@ -10,7 +10,10 @@ def select_student_total_people():
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT COUNT(*) FROM student_information'
+    sql = '''
+          SELECT COUNT(*) 
+          FROM student_information
+          '''
     cursor.execute(sql)
     db.commit()
     Server_content =cursor.fetchall()
@@ -29,7 +32,11 @@ def select_student_information(student_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_name, student_id, gender,birth,departments,address FROM `student_information` WHERE student_id = "{}"'.format(student_id)
+    sql = '''
+          SELECT student_name, student_id, gender, birth, departments, address 
+          FROM student_information
+          WHERE student_id = "{}"
+          '''.format(student_id)
     cursor.execute(sql)
     db.commit()
     server_content =cursor.fetchall()
@@ -48,7 +55,10 @@ def select_student_all():
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_name, student_id, gender,birth,departments,address FROM `student_information`'
+    sql = '''
+          SELECT student_name, student_id, gender, birth, departments, address 
+          FROM student_information
+          '''
     cursor.execute(sql)
     db.commit()
     server_content =cursor.fetchall()
@@ -67,7 +77,11 @@ def select_student_name(student_name):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_name, student_id, gender,birth,departments,address FROM `student_information` WHERE student_name = "{}"'.format(student_name)
+    sql = '''
+          SELECT student_name, student_id, gender, birth, departments, address 
+          FROM student_information
+          WHERE student_name = "{}"
+          '''.format(student_name)
     cursor.execute(sql)
     db.commit()
     server_content =cursor.fetchall()
@@ -83,8 +97,11 @@ def select_student_address(address):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_Name, student_id, gender,birth,departments,address FROM `student_information` WHERE address like "%{}%"'.format(
-        address)
+    sql = '''
+          SELECT student_Name, student_id, gender, birth, departments, address 
+          FROM student_information
+          WHERE address like "%{}%"
+          '''.format(address)
     cursor.execute(sql)
     db.commit()
     server_content = cursor.fetchall()
@@ -100,8 +117,11 @@ def select_student_gender(gender):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_Name, student_id, gender,birth,departments,address FROM `student_information` WHERE gender = "{}"'.format(
-        gender)
+    sql = '''
+          SELECT student_name, student_id, gender, birth, departments, address 
+          FROM student_information
+          WHERE gender = "{}"
+          '''.format(gender)
     cursor.execute(sql)
     db.commit()
     server_content = cursor.fetchall()
@@ -117,8 +137,11 @@ def select_student_age(age):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_Name, student_id, gender,birth,departments,address FROM `student_information` WHERE birth = 2019-"{}"'.format(
-        age)
+    sql = '''
+          SELECT student_name, student_id, gender, birth, departments, address 
+          FROM student_information
+          WHERE birth = 2019-"{}"
+          '''.format(age)
     cursor.execute(sql)
     db.commit()
     server_content = cursor.fetchall()
@@ -134,8 +157,11 @@ def select_student_departments(departments):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT student_Name, student_id, gender,birth,departments,address FROM `student_information` WHERE departments = "{}"'.format(
-        departments)
+    sql = '''
+          SELECT student_Name, student_id, gender, birth, departments, address 
+          FROM student_information 
+          WHERE departments = "{}"
+          '''.format(departments)
     cursor.execute(sql)
     db.commit()
     server_content = cursor.fetchall()
@@ -153,7 +179,10 @@ def select_all_course_title():
     # 获取结果为字典
     # cursor = db.cursor(pymysql.cursors.DictCursor)
     cursor = db.cursor()
-    sql = 'SELECT course_title,course_id FROM `course`'
+    sql = '''
+          SELECT course_title, course_id 
+          FROM course
+          '''
     cursor.execute(sql)
     db.commit()
     all_course = cursor.fetchall()
@@ -189,7 +218,11 @@ def select_course_title_id(course_title):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT course_id FROM `course` where course_title = "{}"'.format(course_title)
+    sql = '''
+          SELECT course_id 
+          FROM course
+          WHERE course_title = "{}"
+          '''.format(course_title)
     cursor.execute(sql)
     db.commit()
     course_id = cursor.fetchall()
@@ -212,7 +245,11 @@ def select_course_id(course_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT course_title,course_id FROM `course` where course_id = "{}"'.format(course_id)
+    sql = '''
+          SELECT course_title, course_id 
+          FROM course 
+          WHERE course_id = "{}"
+          '''.format(course_id)
     cursor.execute(sql)
     db.commit()
     course_content = cursor.fetchall()
@@ -230,7 +267,12 @@ def select_all_grade():
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'select student_information.student_name,student_information.student_id,course.course_title,grade_table.grade from student_information left join grade_table on student_information.student_id=grade_table.student_id left join  course on grade_table.course_id=course.course_id'
+    sql = '''
+          SELECT student_information.student_name, student_information.student_id, course.course_title, grade_table.grade 
+          FROM student_information 
+          LEFT JOIN grade_table ON student_information.student_id = grade_table.student_id 
+          LEFT JOIN course ON grade_table.course_id=course.course_id
+          '''
     cursor.execute(sql)
     db.commit()
     all_course = cursor.fetchall()
@@ -247,7 +289,13 @@ def select_student_id_grade(student_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'select student_information.student_Name,student_information.student_id,course.course_title,grade_table.Grade from student_information left join grade_table on student_information.student_id=grade_table.student_id left join  course on grade_table.course_id=course.course_id WHERE student_information.Student_id = "{}"'.format(student_id)
+    sql = '''
+          SELECT student_information.student_Name, student_information.student_id, course.course_title, grade_table.Grade
+          FROM student_information 
+          LEFT JOIN grade_table ON student_information.student_id = grade_table.student_id 
+          LEFT JOIN course ON grade_table.course_id=course.course_id 
+          WHERE student_information.Student_id = "{}"
+          '''.format(student_id)
     cursor.execute(sql)
     db.commit()
     student_content = cursor.fetchall()
@@ -263,7 +311,13 @@ def select_student_name_grade(student_name):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'select student_information.student_name,student_information.student_id,course.course_title,grade_table.grade from student_information left join grade_table on student_information.student_id=grade_table.student_id left join  course on grade_table.course_id=course.course_id WHERE student_information.student_Name = "{}"'.format(student_name)
+    sql = '''
+          SELECT student_information.student_name, student_information.student_id, course.course_title, grade_table.grade 
+          FROM student_information 
+          LEFT JOIN grade_table ON student_information.student_id = grade_table.student_id 
+          LEFT JOIN course ON grade_table.course_id=course.course_id 
+          WHERE student_information.student_Name = "{}"
+          '''.format(student_name)
     cursor.execute(sql)
     db.commit()
     student_content = cursor.fetchall()
@@ -279,7 +333,11 @@ def select_grade_uniqu(student_id,course_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT * FROM grade_table WHERE student_id = "{}" and course_id = "{}"'.format(student_id,course_id)
+    sql = '''
+          SELECT * 
+          FROM grade_table 
+          WHERE student_id = "{}" AND course_id = "{}"
+          '''.format(student_id, course_id)
     cursor.execute(sql)
     db.commit()
     grade_content = cursor.fetchall()
@@ -295,7 +353,12 @@ def select_synchronous(student_id):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'SELECT * FROM student_information JOIN grade_table on student_information.student_id=grade_table.student_id WHERE student_information.student_id = "{}"'.format(student_id)
+    sql = '''
+          SELECT * 
+          FROM student_information 
+          JOIN grade_table ON student_information.student_id = grade_table.student_id 
+          WHERE student_information.student_id = "{}"
+          '''.format(student_id)
     cursor.execute(sql)
     db.commit()
     grade_content = cursor.fetchall()

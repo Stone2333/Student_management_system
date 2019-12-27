@@ -10,7 +10,10 @@ def insert_student_information(student_name, student_id, gender,birth,department
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'INSERT INTO `student_information` (student_id, student_name,gender,birth,departments,address) VALUES ("{}","{}","{}","{}","{}","{}") '.format(student_id, student_name, gender, birth, departments, address)
+    sql = '''
+          INSERT INTO student_information (student_id, student_name, gender, birth, departments, address) 
+          VALUES ("{}", "{}", "{}", "{}", "{}", "{}")
+          '''.format(student_id, student_name, gender, birth, departments, address)
     cursor.execute(sql)
     db.commit()
     cursor.close()
@@ -26,7 +29,10 @@ def insert_course(course_title,course_id):
         password="123456",
         db="student_practice".format())
     cursor = db.cursor()
-    sql = 'INSERT INTO `course` (course_id,course_title) VALUES ("{}","{}")'.format(course_id, course_title)
+    sql = '''
+          INSERT INTO course (course_id, course_title) 
+          VALUES ("{}", "{}")
+          '''.format(course_id, course_title)
     cursor.execute(sql)
     db.commit()
     cursor.close()
@@ -42,7 +48,10 @@ def insert_grade_id(student_id, course_id, grade):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'INSERT INTO `grade_table` (student_id, course_id, grade) VALUES ("{}","{}","{}") '.format(student_id, course_id, grade)
+    sql = '''
+          INSERT INTO grade_table (student_id, course_id, grade)
+          VALUES ("{}", "{}", "{}")
+          '''.format(student_id, course_id, grade)
     cursor.execute(sql)
     db.commit()
     cursor.close()
@@ -58,7 +67,10 @@ def insert_grade_table(student_id, course_id, grade):
         password="123456",
         db="student_practice")
     cursor = db.cursor()
-    sql = 'INSERT INTO `grade_table` (student_id, course_id, grade) VALUES ("{}","{}","{}") '.format(student_id, course_id, grade)
+    sql = '''
+          INSERT INTO grade_table (student_id, course_id, grade) 
+          VALUES ("{}", "{}", "{}")
+          '''.format(student_id, course_id, grade)
     cursor.execute(sql)
     db.commit()
     cursor.close()
