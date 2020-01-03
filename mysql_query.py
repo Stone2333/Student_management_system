@@ -247,7 +247,76 @@ def select_synchronous(student_id):
     synchronous = select(sql)
     return synchronous
 
+# 根据科目编号查询选择科目学生名单
+def course_id_student(course_id):
+    sql = '''
+          SELECT student_information.student_name,grade_table.student_id
+          FROM student_information
+          JOIN grade_table ON student_information.student_id = grade_table.student_id
+          WHERE course_id = "{}"
+          '''.format(course_id)
+    student_information = select(sql)
+    return student_information
 
-# if __name__ == '__main__':
-#     Select_Student_address('成都')
+
+# 根据科目编号查询选择科目学生人数
+def course_id_student_number(course_id):
+    sql = '''
+          SELECT COUNT(*)
+          FROM student_information
+          JOIN grade_table ON student_information.student_id = grade_table.student_id
+          WHERE course_id = "{}"
+          '''.format(course_id)
+    student_number = select(sql)
+    return student_number
+
+
+# 参加考试学生名单
+def take_an_exam_student():
+    sql = '''
+          SELECT DISTINCT student_information.student_name,grade_table.student_id
+          FROM student_information
+          JOIN grade_table ON student_information.student_id = grade_table.student_id
+          '''
+    take_an_exam_student = select(sql)
+    return take_an_exam_student
+
+
+# 参加考试学生数量
+def ake_an_exam_student_number():
+    sql = '''
+          SELECT COUNT(DISTINCT student_information.student_id)
+          FROM student_information
+          JOIN grade_table ON student_information.student_id = grade_table.student_id
+          '''
+    student_number = select(sql)
+    return student_number
+
+
+# 没有参加考试的学生名单
+def no_take_the_exam_student():
+    sql = '''
+          SELECT DISTINCT student_information.student_name,student_information.student_id
+          FROM student_information
+          LEFT JOIN grade_table ON student_information.student_id = grade_table.student_id
+          WHERE grade_table.student_id IS NULL     
+          '''
+    no_take_the_exam_student = select(sql)
+    return no_take_the_exam_student
+
+
+# 没有参加学生考试的学生数量
+def no_take_the_exam_student_number():
+    sql = '''
+          SELECT COUNT(DISTINCT student_information.student_id)
+          FROM student_information
+          LEFT JOIN grade_table ON student_information.student_id = grade_table.student_id
+          WHERE grade_table.student_id IS NULL
+          '''
+    student_number = select(sql)
+    return student_number
+
+if __name__ == '__main__':
+    course_id_student('02')
+    course_id_student_number('02')
 

@@ -168,7 +168,7 @@ class Student():
             student_information = self.strip(',').split(',')
             try:
                 student_unique = mysql_query.select_student_information(student_information[0])
-                if student_unique == []:
+                if student_unique == ():
                     mysql_insert.insert_student_information(student_information[0], student_information[1], student_information[2], student_information[3], student_information[4], student_information[5])
                 else:
                     print('学号已存在')
@@ -201,7 +201,7 @@ class Student():
             print('学号不存在')
         else:
             student_tuple = student_information[0]
-            student_information_str = '姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' +  student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5]
+            student_information_str = '姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' + student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5]
             print(student_information_str)
 
 
@@ -293,7 +293,7 @@ class Student():
         if self == '0':
             subfunction.student(self)
         student_id = mysql_query.select_student_information(self)
-        if student_id == []:
+        if student_id == ():
             print('该学号不存在')
         else:
             mysql_delete.delete_student_information(self)
@@ -310,7 +310,7 @@ class Course:
             Course_title = self.strip(',').split(',')
             try:
                 course_uniqu = mysql_query.select_course_id(Course_title[0])
-                if course_uniqu == []:
+                if course_uniqu == ():
                     mysql_insert.insert_course(Course_title[0], Course_title[1])
                 else:
                     print('该项目编号已存在')
@@ -380,7 +380,7 @@ class Course:
             subfunction.subjectinfo(self)
         else:
             course_title_unique = mysql_query.select_course_title(self)
-            if course_title_unique == []:
+            if course_title_unique == ():
                 print('该科目不存在')
             else:
                 mysql_delete.delete_course_title(self)
@@ -391,7 +391,7 @@ class Course:
             subfunction.subjectinfo(self)
         else:
             course_id_unique = mysql_query.select_course_id(self)
-            if course_id_unique == []:
+            if course_id_unique == ():
                 print('该编号不存在')
             else:
                 mysql_delete.delete_course_id(self)
@@ -408,8 +408,8 @@ class Grade:
             try:
                 course_id = mysql_query.select_course_title_id(grade[1])
                 grade_uniqu = mysql_query.select_grade_uniqu(grade[0], course_id)
-                if grade_uniqu == []:
-                    mysql_insert.insert_grade_table(grade[0], course_id, grade[2])
+                if grade_uniqu == ():
+                    mysql_insert.insert_grade_id(grade[0], course_id, grade[2])
                 else:
                     print('该成绩已存在')
             except:
