@@ -2,6 +2,7 @@ import mysql_insert
 import mysql_query
 import mysql_update
 import mysql_delete
+import datetime
 
 
 # 主程序 一级菜单
@@ -244,7 +245,9 @@ class Student():
     def student_age(self):
         if self == '0':
             subfunction.student(self)
-        student_information = mysql_query.select_student_age(self)
+
+        year = int(datetime.datetime.now().year) - int(self)
+        student_information = mysql_query.select_student_age(year)
         if student_information == ():
             print('该年龄段的学生信息暂无')
         else:

@@ -26,6 +26,37 @@ def select_student_total_people():
     number = select(sql)
     return number
 
+# 查询院系人数
+def select_student_departments_number(departments):
+    sql = '''
+          SELECT COUNT(*) 
+          FROM student_information 
+          WHERE departments = "{}"
+          '''.format(departments)
+    number = select(sql)
+    return number
+
+
+# 查询地区人数
+def select_student_address_number(address):
+    sql = '''
+          SELECT COUNT(*)   
+          FROM student_information
+          WHERE address LIKE "%{}%"
+          '''.format(address)
+    number = select(sql)
+    return number
+
+# 查询年龄段人数
+def select_student_age_number(age):
+    sql = '''
+          SELECT COUNT(*)
+          FROM student_information
+          WHERE birth = "{}"
+          '''.format(age)
+    number = select(sql)
+    return number
+
 
 # 根据学号查询学生信息
 def select_student_information(student_id):
@@ -64,7 +95,7 @@ def select_student_address(address):
     sql = '''
           SELECT student_name, student_id, gender, birth, departments, address 
           FROM student_information
-          WHERE address like "%{}%"
+          WHERE address LIKE "%{}%"
           '''.format(address)
     student_address = select(sql)
     return student_address
@@ -86,7 +117,7 @@ def select_student_age(age):
     sql = '''
           SELECT student_name, student_id, gender, birth, departments, address 
           FROM student_information
-          WHERE birth = 2019-"{}"
+          WHERE birth ="{}"
           '''.format(age)
     student_information = select(sql)
     return student_information
@@ -101,6 +132,16 @@ def select_student_departments(departments):
           '''.format(departments)
     student_departments = select(sql)
     return student_departments
+
+
+# 查询科目数量
+def select_course_number():
+    sql = '''
+          SELECT COUNT(*) 
+          FROM course
+          '''
+    number = select(sql)
+    return number
 
 
 # 查询所有科目信息
