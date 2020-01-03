@@ -1,5 +1,5 @@
 # Student_management_system(学生管理系统 )
-是使用python语言作为后端语言，配合mysql数据库实现数据增删改查，利用django实现前端的管理系统。
+是使用python语言作为后端，配合mysql数据库实现数据增删改查，利用django实现前端的管理系统。
 ### 学生管理系统能做什么
 - 对学生信息的增删改查
   - 新增
@@ -55,6 +55,7 @@
 ### 环境
 python >= 3.7.2
 pymysql >= 0.93
+mysql >= 5.5
 
 ### 任务
 - [x] 已完成
