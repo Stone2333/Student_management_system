@@ -44,6 +44,8 @@ class subfunction:
         frame.grade_frame(subfunction)
 
 
+
+# 三级菜单
 class frame:
     def student_frame(self):
         while True:
@@ -132,10 +134,10 @@ class frame:
                 Grade.grade_all_query(self)
                 subfunction.grade(self)
             elif self == '3':
-                grade = input('请输入需要查询成绩的学号(输入"0"返回上一级)')
+                grade = input('请输入需要查询成绩的学号(输入"0"返回上一级)\n')
                 Grade.grade_student_id_query(grade)
             elif self == '4':
-                grade = input('请输入需要查询成绩的姓名(输入"0"返回上一级)')
+                grade = input('请输入需要查询成绩的姓名(输入"0"返回上一级)\n')
                 Grade.grade_student_name_query(grade)
             elif self == '5':
                 grade = input('请输入修改信息的学号和课程名称与新值并选择类型学号、课程编号、成绩逗号分割(输入"0"返回上一级)\n')
@@ -152,8 +154,6 @@ class frame:
             else:
                 print('请输入正确的功能序号')
                 subfunction.grade(self)
-
-
 
 
 
@@ -174,6 +174,7 @@ class Student():
             except:
                 print('请按照规范输入学生信息')
 
+
     # 所有学生信息
     def student_all(self):
         if self == '0':
@@ -182,11 +183,13 @@ class Student():
         for student_tuple in student_information:
             print('姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' + student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5])
 
+
     # 总人数
     def student_total_people(self):
         total_people = mysql_query.select_student_total_people()
         people = str(total_people[0][0])
         print('总人数:' + people + '\n')
+
 
     # 根据学生学号查询学生信息显示 姓名，学号，性别
     def student_query(self):
@@ -200,6 +203,7 @@ class Student():
             student_information_str = '姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' +  student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5]
             print(student_information_str)
 
+
     # 根据学生名字查询一个或者多个学生信息 显示 姓名，学号，性别
     def student_name_query(self):
         if self == '0':
@@ -211,6 +215,7 @@ class Student():
             for student_tuple in student_information:
                 print('姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' + student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5])
 
+
     # 根据地区查询学生信息
     def student_address(self):
         if self == '0':
@@ -221,6 +226,7 @@ class Student():
         else:
             for student_tuple in student_information:
                 print('姓名:' + student_tuple[0] + ' 学号:' + student_tuple[1] + ' 性别:' + student_tuple[2] + ' 出生年月:' + str(student_tuple[3]) + ' 院系:' + student_tuple[4] + ' 地址:' + student_tuple[5])
+
 
     # 根据性别查询学生信息
     def student_gender(self):
@@ -398,7 +404,7 @@ class Grade:
             grade = self.strip(',').split(',')
             try:
                 course_id = mysql_query.select_course_title_id(grade[1])
-                grade_uniqu = mysql_query.select_grade_uniqu(grade[0],course_id)
+                grade_uniqu = mysql_query.select_grade_uniqu(grade[0], course_id)
                 if grade_uniqu == []:
                     mysql_insert.insert_grade_table(grade[0], course_id, grade[2])
                 else:
@@ -452,7 +458,7 @@ class Grade:
                     mysql_update.update_grade_course_id(grade[0], course_id, new_course_id)
                 elif grade[3] == '成绩':
                     course_id = mysql_query.select_course_title_id(grade[1])
-                    mysql_update.update_grade_grade(grade[0], course_id,grade[2])
+                    mysql_update.update_grade_grade(grade[0], course_id, grade[2])
             except:
                 print('请按照规范输入')
 
