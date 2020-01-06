@@ -85,6 +85,12 @@ class frame:
                 print('学生人数如下')
                 Student.student_total_people(self)
                 subfunction.student(self)
+            elif self == '12':
+                departments = input('请输入查询人数的院系')
+                Student.departments_number(departments)
+            elif self == '13':
+                address = input('请输入需要查询人数的地区')
+                Student.address_number(address)
             elif self == '0':
                 print('退回上一级')
                 function()
@@ -191,6 +197,21 @@ class Student():
         people = str(total_people[0][0])
         print('总人数:' + people + '\n')
 
+    # 单独院系人数查询
+    def departments_number(self):
+        if self == '0':
+            subfunction.student(self)
+        departments_number = mysql_query.select_student_departments_number(self)
+        number = str(departments_number[0][0])
+        print('院系:' + self + ' 人数:' + number)
+
+     # 单独地区人数查询
+    def address_number(self):
+        if self == '0':
+            subfunction.student(self)
+        address_number = mysql_query.select_student_address_number(self)
+        number = str(address_number[0][0])
+        print('地区:' + self + ' 人数:' + number)
 
     # 根据学生学号查询学生信息显示 姓名，学号，性别
     def student_query(self):
@@ -490,7 +511,7 @@ class Grade:
                     print('学号不在成绩表存在')
                 elif course_unique == ():
                     print('科目不存在')
-                elif student_unique and course_unique !=():
+                elif student_unique and course_unique != ():
                     mysql_delete.delete_student_grade(grade[0], course_unique)
             except:
                 print('请按照规范输入')

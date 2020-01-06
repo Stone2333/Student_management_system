@@ -26,7 +26,8 @@ def select_student_total_people():
     number = select(sql)
     return number
 
-# 查询院系人数
+
+# 查询单个院系人数
 def select_student_departments_number(departments):
     sql = '''
           SELECT COUNT(*) 
@@ -37,7 +38,18 @@ def select_student_departments_number(departments):
     return number
 
 
-# 查询地区人数
+#  查询所有院系人数
+def all_dedepartments_number():
+    sql = '''
+          SELECT departments, count(*) AS number
+          FROM student_information
+          GROUP BY departments
+          '''
+    all_dedepartments_number = select(sql)
+    return all_dedepartments_number
+
+
+# 查询单个地区人数
 def select_student_address_number(address):
     sql = '''
           SELECT COUNT(*)   
@@ -47,7 +59,18 @@ def select_student_address_number(address):
     number = select(sql)
     return number
 
-# 查询年龄段人数
+# 查询所有地区人数
+def select_student_all_address_number():
+    sql = '''
+          SELECT address, count(*) AS number
+          FROM student_information
+          GROUP BY address
+           '''
+    all_address_number = select(sql)
+    return all_address_number
+
+
+# 查询单独年龄段人数
 def select_student_age_number(age):
     sql = '''
           SELECT COUNT(*)
@@ -56,6 +79,39 @@ def select_student_age_number(age):
           '''.format(age)
     number = select(sql)
     return number
+
+
+# 查询所有年龄段人数
+def all_age_number():
+    sql = '''
+          SELECT birth,COUNT(*)
+          FROM student_information
+          GROUP BY birth
+          '''
+    all_age_number = select(sql)
+    return all_age_number
+
+
+# 查询单个性别人数
+def gender_number(gender):
+    sql = '''
+          SELECT gender,COUNT(*)
+          FROM student_information
+          WHERE gender = "{}"
+          '''.format(gender)
+    gender_number = select(sql)
+    return gender_number
+
+
+# 查询所有性别人数
+def all_gender_number():
+    sql = '''
+          SELECT gender,COUNT(*)
+          FROM student_information
+          GROUP BY gender
+          '''
+    all_gender_number = select(sql)
+    return all_gender_number
 
 
 # 根据学号查询学生信息
