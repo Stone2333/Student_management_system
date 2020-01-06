@@ -374,6 +374,7 @@ def no_take_the_exam_student_number():
     student_number = select(sql)
     return student_number
 
+
 if __name__ == '__main__':
     course_id_student('02')
     course_id_student_number('02')
