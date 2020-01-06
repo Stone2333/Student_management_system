@@ -304,6 +304,7 @@ def select_synchronous(student_id):
     synchronous = select(sql)
     return synchronous
 
+
 # 根据科目编号查询选择科目学生名单
 def course_id_student(course_id):
     sql = '''
