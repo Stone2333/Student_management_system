@@ -59,6 +59,7 @@ def select_student_address_number(address):
     number = select(sql)
     return number
 
+
 # 查询所有地区人数
 def select_student_all_address_number():
     sql = '''
