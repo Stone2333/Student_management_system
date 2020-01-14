@@ -10,7 +10,6 @@ def select(sql):
     # cursor = db.cursor()
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = '''{}'''.format(sql)
-
     cursor.execute(sql)
     db.commit()
     content = cursor.fetchall()

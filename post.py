@@ -2,18 +2,20 @@ import requests
 import json
 def post():
     # join_url = 'student_all'
-    join_url = 'student_info_address'
+    join_url = 'login_check'
+    # join_url = 'student_info_address'
     utl = 'http://127.0.0.1:8000/api/' + join_url
     headers = {
         # "Content-Type": "application/form-data",
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'
     }
 
-    # data = {
-    #     'username': 'stone1',
-    #     'password': '1231'
-    # }
-    data = {'student_address': '成都'}
+    data = {
+        'username': 'stone',
+        'password': '1',
+        'student_address':'成都'
+    }
+    # data = {'student_address': '成都'}
 
     response = requests.post(url=utl, headers=headers, data=data)
     print('请求方式post:')
@@ -47,5 +49,5 @@ def put():
 
 if __name__ == '__main__':
    post()
-   get()
-   put()
+   # get()
+   # put()

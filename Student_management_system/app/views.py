@@ -43,13 +43,11 @@ def request_check(func):
         #     return JsonResponse(data)
         else:
             data = {
-                'msg': '请求失败',
-                'code': 404
+                'errCode': 404,
+                'errDesc': "网页不存在",
             }
             return JsonResponse(data)
     return request
-
-
 
 
 @request_check
@@ -61,27 +59,27 @@ def login_check(request):
         db_user = mysql_query.login(username)[0]
     except:
         data = {
-            'msg': '用户名和密码不能为空',
-            'code': 13
+            "errCode": "11",
+            "errDesc": "用户名和密码不能为空"
         }
         return JsonResponse(data)
     if db_user == ():
         data = {
-            'msg': '用户不存在',
-            'code': 10,
+            "errCode": "10",
+            "errDesc": "用户不存在",
         }
         return JsonResponse(data)
-    elif username == db_user[0] and password == db_user[1]:
+    elif username == db_user['username'] and password == db_user['password']:
         data = {
-            'username': username,
-            'msg': '登录成功',
-            'code': 12,
+            "errCode": "0",
+            "errDesc": "操作成功",
+            "data": username
         }
         return JsonResponse(data)
     else:
         data = {
-            'msg': '用户名或密码错误',
-            'code': 11,
+            "errCode": "12",
+            "errDesc": "用户名或密码错误",
         }
         return JsonResponse(data)
 
@@ -99,17 +97,34 @@ def student_all(request):
 
 
 @request_check
-def student_info_id(request):
-    '''根据id查询学生信息'''
+def student_info(request):
+    '''根据id、name、address查询学生信息'''
     student_id = request.POST.get('student_id')
-    student_info = mysql_query.select_student_information(student_id)
-    print(student_info)
-    if student_info == ():
+    student_name = request.POST.get('student_name')
+    student_address = request.POST.get('student_address')
+    student_info_id = mysql_query.select_student_information(student_id)
+    student_info_name = mysql_query.select_student_name(student_name)
+    student_info_address = mysql_query.select_student_name(student_address)
+    if student_info_id == ():
         data = {
-            'msg': '学号不存在',
-            'code': 20,
+            "errCode": "0",
+            "errDesc": "操作成功",
+            "data": 'null'
         }
         return JsonResponse(data)
+    elif student_info_name == ():
+        data = {
+            'msg': '姓名不存在',
+            'code': 30,
+        }
+        return JsonResponse(data)
+    elif student_info_address == ():
+        data = {
+            'msg': '地址不存在',
+            'code': 40,
+        }
+        return JsonResponse(data)
+
     else:
         data ={
             'msg': '成功',
@@ -140,6 +155,7 @@ def student_info_name(request):
 
 
 def student_info_address(request):
+    '''根据地址查询学生信息'''
     student_address = request.POST.get('student_address')
     student_info = mysql_query.select_student_address(student_address)
     if student_info == ():
