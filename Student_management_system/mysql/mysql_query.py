@@ -7,14 +7,27 @@ def select(sql):
         user="root",
         password="123456",
         db="student_practice")
-    cursor = db.cursor()
+    # cursor = db.cursor()
+    cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = '''{}'''.format(sql)
+
     cursor.execute(sql)
     db.commit()
     content = cursor.fetchall()
     cursor.close()
     db.close()
     return content
+
+def login(name):
+    sql = '''
+          SELECT username,password 
+          FROM user
+          WHERE username = "{}"
+          '''.format(name)
+    user = select(sql)
+    return user
+
+
 
 
 # 查询学生总人数
@@ -133,6 +146,7 @@ def select_student_all():
           FROM student_information
           '''
     student_all_information = select(sql)
+    print(student_all_information)
     return student_all_information
 
 
@@ -376,6 +390,6 @@ def no_take_the_exam_student_number():
 
 
 if __name__ == '__main__':
-    course_id_student('02')
-    course_id_student_number('02')
-
+    # course_id_student('02')
+    # course_id_student_number('02')
+    select_student_all()

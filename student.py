@@ -1,7 +1,4 @@
-import mysql_insert
-import mysql_query
-import mysql_update
-import mysql_delete
+from mysql import mysql_insert, mysql_delete, mysql_update, mysql_query
 import datetime
 
 
