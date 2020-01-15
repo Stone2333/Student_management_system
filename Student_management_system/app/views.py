@@ -125,41 +125,42 @@ def student_info(request):
         return JsonResponse(data)
     else:
         student_info_id = mysql_query.select_student_information(student_id)
+        print(student_info_id)
         student_info_name = mysql_query.select_student_name(student_name)
         student_info_address = mysql_query.select_student_name(student_address)
-        if student_info_id == []:
+        if student_info_id == ():
             data = {
                 "errCode": "20",
                 "errDesc": "学生学号不存在",
             }
             return JsonResponse(data)
-        elif student_info_name == []:
+        elif student_info_name == ():
             data = {
                 "errCode": "21",
                 "errDesc": "学生名字不存在",
             }
             return JsonResponse(data)
-        elif student_info_address == []:
+        elif student_info_address == ():
             data = {
                 "errCode": "22",
                 "errDesc": "地址不存在",
             }
             return JsonResponse(data)
-        elif student_id !=[]:
+        elif student_id !=():
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
                 "data": student_info_id
             }
             return JsonResponse(data)
-        elif student_name !=[]:
+        elif student_name !=():
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
                 "data": student_info_name
             }
             return JsonResponse(data)
-        elif student_address !=[]:
+        elif student_address !=():
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
