@@ -2,13 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录页面</title>
+    <title>ajax登录页面</title>
+    <script src="/static/js/jQuery-3.4.1.js"></script>
+    <script>
+        $(function () {
+            $('#btnLogin').click(function () {
+               // 获取用户名和密码
+                username = $('#username').val()
+                password = $('#password').val()
+                // 发起ajax请求/login_ajax_check,携带用户名和密码
+                $.ajax({
+                    'url':'/login_check',
+                    'type':'post',
+                    'data':{'username':username,'password':password},
+                    'dataType':'json',
+                    success:data =>{
+                        // 登录成功{'res':1}
+                        // 登录失败{'res':0}
+                        if (data.errCode == "12"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else if (data.errCode == "11"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else if (data.errCode == '10'){
+                             $('#errmsg').show().html(data.errDesc)
+                        }else if (data.errCode == '0'){
+                             location.href = '/index'
+                        }else {
+                            //跳转到首页
+                            location.href = '/login'
+                        }
+                    }
+                })
+            })
+
+        })
+    </script>
+    <style>
+        #errmsg{
+            display: none;
+            color: red;
+        }
+    </style>
 </head>
 <body>
-<form method="post" action="/api/login_check">
-    用户名:<input type="text" name="username"><br/>
-    密码:<input type="password" name="password"><br/>
-    <input type="submit" value="登录">
-</form>
+<div>
+    用户名:<input type="text" id="username"><br/>
+    密码:<input type="password" id="password"><br/>
+    <input type="button" id="btnLogin" value="登录">
+    <div id="errmsg"></div>
+</div>
 </body>
 </html>

@@ -24,6 +24,7 @@ def login(name):
           WHERE username = "{}"
           '''.format(name)
     user = select(sql)
+    print(user)
     return user
 
 

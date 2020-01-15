@@ -6,8 +6,8 @@ urlpatterns = [
     url('^login_check$', views.login_check),
     url('index$', views.index),
     url('student_all$', views.student_all),
-    url('student_info_id$', views.student_info),
-    url('student_info_name$', views.student_info_name),
-    url('student_info_address$', views.student_info_address),
+    url('student_info$', views.student_info),
+    # url('student_info_name$', views.student_info_name),
+    # url('student_info_address$', views.student_info_address),
 
 ]

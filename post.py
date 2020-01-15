@@ -1,9 +1,9 @@
 import requests
 import json
 def post():
-    # join_url = 'student_all'
-    join_url = 'login_check'
-    # join_url = 'student_info_address'
+    join_url = 'student_all'
+    # join_url = 'login_check'
+    # join_url = 'student_info'
     utl = 'http://127.0.0.1:8000/api/' + join_url
     headers = {
         # "Content-Type": "application/form-data",
@@ -11,9 +11,12 @@ def post():
     }
 
     data = {
-        'username': 'stone',
-        'password': '1',
-        'student_address':'成都'
+        "username": "",
+        "password": "1",
+        "student_id": "666",
+        "student_name": '张三',
+        "student_address": "成都"
+
     }
     # data = {'student_address': '成都'}
 
@@ -47,6 +50,15 @@ def put():
     print('请求方式put:')
     print(response.json())
 
+
+# string = eval("[[1,2,3],[1,2,2]]")
+# print(type(string))
+# for a in string:
+#     print(a)
+#
+# a =  "1'1'1'1'1"
+# c = a.replace('\'','\"')
+# print(c)
 if __name__ == '__main__':
    post()
    # get()
