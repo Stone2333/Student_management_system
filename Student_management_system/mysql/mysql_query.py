@@ -146,7 +146,6 @@ def select_student_all():
           FROM student_information
           '''
     student_all_information = select(sql)
-    print(student_all_information)
     return student_all_information
 
 
@@ -197,11 +196,12 @@ def select_student_age(age):
 # 根据院系查询
 def select_student_departments(departments):
     sql = '''
-          SELECT student_Name, student_id, gender, birth, departments, address 
+          SELECT student_name, student_id, gender, birth, departments, address 
           FROM student_information 
           WHERE departments = "{}"
           '''.format(departments)
     student_departments = select(sql)
+    print(student_departments)
     return student_departments
 
 

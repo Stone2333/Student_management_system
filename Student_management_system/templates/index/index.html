@@ -35,14 +35,17 @@
                 }
             })
         })
-        $(function () {
+
+
+         $(function () {
             $('#btnLogin').click(function () {
                 $('#errmsg').html('')
                // 获取用户名和密码username = $('#username').val()
                     username = $('#username').val()
-                // 发起ajax请求/login_ajax_check,携带用户名和密码
-                $.ajax({
-                    'url':'/student_info',
+                    tpye = $('#type option:selected').val()
+                if (tpye == 'student_id'){
+                    $.ajax({
+                    'url':'/student_student_id',
                     'type':'post',
                     'data':{'student_id':username},
                     'dataType':'json',
@@ -65,19 +68,163 @@
                              }
                         }else if(data.errCode == "20"){
                             $('#errmsg').show().html(data.errDesc)
-                        }else if(data.errCode == '21'){
-                            $('#errmsg').show().html(data.errDesc)
-                        }else if(data.errCode == '22'){
-                             $('#errmsg').show().html(data.errDesc)
-                        }
-                        else {
+                        } else {
                             //跳转到首页
                             location.href = '/index'
                         }
                     }
                 })
+                }else if(tpye == 'student_name'){
+                    $.ajax({
+                    'url':'/student_student_name',
+                    'type':'post',
+                    'data':{'student_name':username},
+                    'dataType':'json',
+                    success:data =>{
+                        // 登录成功{'res':1}
+                        // 登录失败{'res':0}
+                        if (data.errCode == "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                student_name = json[i]['student_name']
+                                student_id = json[i]['student_id']
+                                gender = json[i]['gender']
+                                birth = json[i]['birth']
+                                departments = json[i]['departments']
+                                address = json[i]['address']
+                                option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address +'</div>'
+                                $('#errmsg').append(option_str)
+                                $('#errmsg').show().html()
+                                // console.log(option_str)
+                             }
+                        }else if(data.errCode == "21"){
+                            $('#errmsg').show().html(data.errDesc)
+                        } else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                    })
+                }else if(tpye=='student_address'){
+                     $.ajax({
+                    'url':'/student_student_address',
+                    'type':'post',
+                    'data':{'student_address':username},
+                    'dataType':'json',
+                    success:data =>{
+                        if (data.errCode == "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                student_name = json[i]['student_name']
+                                student_id = json[i]['student_id']
+                                gender = json[i]['gender']
+                                birth = json[i]['birth']
+                                departments = json[i]['departments']
+                                address = json[i]['address']
+                                option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address +'</div>'
+                                $('#errmsg').append(option_str)
+                                $('#errmsg').show().html()
+                                // console.log(option_str)
+                             }
+                        }else if(data.errCode == "21"){
+                            $('#errmsg').show().html(data.errDesc)
+                        } else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                    })
+                }else if(tpye=='student_departments'){
+                     $.ajax({
+                    'url':'/student_student_departments',
+                    'type':'post',
+                    'data':{'student_departments':username},
+                    'dataType':'json',
+                    success:data =>{
+
+                        if (data.errCode == "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                student_name = json[i]['student_name']
+                                student_id = json[i]['student_id']
+                                gender = json[i]['gender']
+                                birth = json[i]['birth']
+                                departments = json[i]['departments']
+                                address = json[i]['address']
+                                option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address +'</div>'
+                                $('#errmsg').append(option_str)
+                                $('#errmsg').show().html()
+                                // console.log(option_str)
+                             }
+                        }else if(data.errCode == "21"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                    })
+
+
+                }
             })
-        })
+         })
+                // 发起ajax请求/login_ajax_check,携带用户名和密码
+
+
+
+
+
+
+        // $(function () {
+        //     $('#btnLogin').click(function () {
+        //         $('#errmsg').html('')
+        //        // 获取用户名和密码username = $('#username').val()
+        //             username = $('#username').val()
+        //             tpye = $('#type').val()
+        //         if (tpye == 'student_id'){
+        //             $('#errmsg').show().html("'<h1>'+'123'+'</h1>'")
+        //         }
+        //         // 发起ajax请求/login_ajax_check,携带用户名和密码
+        //         $.ajax({
+        //             'url':'/student_info',
+        //             'type':'post',
+        //             'data':{'student_id':username,
+        //                     'student_name':username,
+        //                     'student_address':username},
+        //             'dataType':'json',
+        //             success:data =>{
+        //                 // 登录成功{'res':1}
+        //                 // 登录失败{'res':0}
+        //                 if (data.errCode == "0"){
+        //                     json = data.data
+        //                     for(i = 0; i < json.length; i++){
+        //                         student_name = json[i]['student_name']
+        //                         student_id = json[i]['student_id']
+        //                         gender = json[i]['gender']
+        //                         birth = json[i]['birth']
+        //                         departments = json[i]['departments']
+        //                         address = json[i]['address']
+        //                         option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address +'</div>'
+        //                         $('#errmsg').append(option_str)
+        //                         $('#errmsg').show().html()
+        //                         // console.log(option_str)
+        //                      }
+        //                 }else if(data.errCode == "20"){
+        //                     $('#errmsg').show().html(data.errDesc)
+        //                 }else if(data.errCode == '21'){
+        //                     $('#errmsg').show().html(data.errDesc)
+        //                 }else if(data.errCode == '22'){
+        //                     $('#errmsg').show().html(data.errDesc)
+        //                 }
+        //                 else {
+        //                     //跳转到首页
+        //                     location.href = '/index'
+        //                 }
+        //             }
+        //         })
+        //     })
+        // })
     </script>
     <style>
         #errmsg{
@@ -89,7 +236,13 @@
 <body>
 <h1>首页</h1>
 <div>
-    学生名\学生学号:<input type="text" id="username"><br/>
+    <select id = 'type'>
+  <option value="student_id">学号</option>
+  <option value="student_name">姓名</option>
+  <option value="student_address">地址</option>
+  <option value="student_departments">院系</option>
+    </select>
+   <input type="text" id="username">
     <input type="button" id="btnLogin" value="搜索">
     <div id="errmsg"></div>
 </div>

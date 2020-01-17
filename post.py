@@ -50,7 +50,6 @@ def put():
     print('请求方式put:')
     print(response.json())
 
-
 # string = eval("[[1,2,3],[1,2,2]]")
 # print(type(string))
 # for a in string:
@@ -59,7 +58,7 @@ def put():
 # a =  "1'1'1'1'1"
 # c = a.replace('\'','\"')
 # print(c)
-if __name__ == '__main__':
-   post()
+# if __name__ == '__main__':
+#    post()
    # get()
    # put()

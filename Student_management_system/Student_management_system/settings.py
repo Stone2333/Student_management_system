@@ -128,4 +128,3 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  #  设置静态文件保存目录
-print(STATICFILES_DIRS)

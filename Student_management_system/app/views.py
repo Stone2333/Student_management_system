@@ -112,12 +112,10 @@ def student_all(request):
 #         student_info_id = mysql_query.select_student_information(student_id)
 
 @request_check
-def student_info(request):
-    '''根据id、name、address查询学生信息'''
+def student_info_student_id(request):
+    '''根据id查询学生信息'''
     student_id = request.POST.get('student_id')
-    student_name = request.POST.get('student_name')
-    student_address = request.POST.get('student_address')
-    if student_id == None and student_name == None and student_address == None:
+    if student_id == None:
         data = {
             "errCode": "50",
             "errDesc": "请求信息错误",
@@ -125,52 +123,100 @@ def student_info(request):
         return JsonResponse(data)
     else:
         student_info_id = mysql_query.select_student_information(student_id)
-        print(student_info_id)
-        student_info_name = mysql_query.select_student_name(student_name)
-        student_info_address = mysql_query.select_student_name(student_address)
         if student_info_id == ():
             data = {
                 "errCode": "20",
                 "errDesc": "学生学号不存在",
             }
             return JsonResponse(data)
-        elif student_info_name == ():
-            data = {
-                "errCode": "21",
-                "errDesc": "学生名字不存在",
-            }
-            return JsonResponse(data)
-        elif student_info_address == ():
-            data = {
-                "errCode": "22",
-                "errDesc": "地址不存在",
-            }
-            return JsonResponse(data)
-        elif student_id !=():
+        else:
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
                 "data": student_info_id
             }
             return JsonResponse(data)
-        elif student_name !=():
+
+@request_check
+def student_info_student_name(request):
+    '''根据name查询学生信息'''
+    student_name = request.POST.get('student_name')
+    if student_name == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        student_info_name = mysql_query.select_student_name(student_name)
+        if student_info_name == ():
+            data = {
+                "errCode": "21",
+                "errDesc": "学生姓名不存在",
+            }
+            return JsonResponse(data)
+        else:
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
                 "data": student_info_name
             }
             return JsonResponse(data)
-        elif student_address !=():
+
+@request_check
+def student_info_student_address(request):
+    '''根据address查询学生信息'''
+    student_address = request.POST.get('student_address')
+    print(student_address)
+    if student_address == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        student_info_address = mysql_query.select_student_address(student_address)
+        if student_info_address == ():
+            data = {
+                "errCode": "22",
+                "errDesc": "地址不存在",
+            }
+            return JsonResponse(data)
+        else:
             data = {
                 "errCode": "0",
                 "errDesc": "操作成功",
-                "data": student_info_name
+                "data": student_info_address
             }
             return JsonResponse(data)
 
 
-    # else:
-
+@request_check
+def student_info_student_departments(request):
+    '''根据departments查询学生信息'''
+    student_departments = request.POST.get('student_departments')
+    print(student_info_student_departments)
+    if student_departments == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        student_info_departments = mysql_query.select_student_departments(student_departments)
+        if student_info_departments == ():
+            data = {
+                "errCode": "22",
+                "errDesc": "地址不存在",
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                "errCode": "0",
+                "errDesc": "操作成功",
+                "data": student_info_departments
+            }
+            return JsonResponse(data)
 
 
 
