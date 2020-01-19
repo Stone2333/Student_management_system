@@ -173,7 +173,6 @@ def student_info_student_name(request):
 def student_info_student_address(request):
     '''根据address查询学生信息'''
     student_address = request.POST.get('student_address')
-    print(student_address)
     if student_address == None:
         data = {
             "errCode": "50",
@@ -201,7 +200,6 @@ def student_info_student_address(request):
 def student_info_student_departments(request):
     '''根据departments查询学生信息'''
     student_departments = request.POST.get('student_departments')
-    print(student_info_student_departments)
     if student_departments == None:
         data = {
             "errCode": "50",
@@ -225,9 +223,60 @@ def student_info_student_departments(request):
             return JsonResponse(data)
 
 
+def student_info_student_gender(request):
+    '''根据gender查询学生信息'''
+    student_gender = request.POST.get('student_gender')
+    if student_gender  == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        student_info_gender = mysql_query.select_student_gender(student_gender)
+        if student_info_gender == ():
+            data = {
+                "errCode": "23",
+                "errDesc": "性别不存在",
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                "errCode": "0",
+                "errDesc": "操作成功",
+                "data": student_info_gender
+            }
+            return JsonResponse(data)
+
+
+def student_info_student_birth(request):
+    '''根据birth查询学生信息'''
+    student_birth = request.POST.get('student_birth')
+    if student_birth == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        student_info_birth = mysql_query.select_student_age(student_birth)
+        if student_info_birth == ():
+            data = {
+                "errCode": "24",
+                "errDesc": "该年龄段无学生信息",
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                "errCode": "0",
+                "errDesc": "操作成功",
+                "data": student_info_birth
+            }
+            return JsonResponse(data)
+
 
 def student_add(request):
-    '''新增'''
+    '''新增学生信息'''
     student_id = request.POST.get('student_id')
     student_name = request.POST.get('student_name')
     gender = request.POST.get('gender')
@@ -256,8 +305,9 @@ def student_add(request):
         return JsonResponse(data)
 
 
+
 def student_delete(request):
-    '''删除'''
+    '''删除学生信息'''
     student_id = request.POST.get('student_id')
     db_student_id = mysql_query.select_student_information(student_id)
     if db_student_id == ():

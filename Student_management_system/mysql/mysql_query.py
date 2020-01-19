@@ -89,7 +89,7 @@ def select_student_age_number(age):
     sql = '''
           SELECT COUNT(*)
           FROM student_information
-          WHERE birth = "{}"
+          WHERE birth = YEAR(NOW()-"{}")
           '''.format(age)
     number = select(sql)
     return number
@@ -187,8 +187,9 @@ def select_student_age(age):
     sql = '''
           SELECT student_name, student_id, gender, birth, departments, address 
           FROM student_information
-          WHERE birth ="{}"
+          WHERE birth = YEAR(NOW())- "{}"
           '''.format(age)
+    print(sql)
     student_information = select(sql)
     return student_information
 
@@ -479,4 +480,5 @@ def no_take_the_exam_student_number():
 if __name__ == '__main__':
     # course_id_student('02')
     # course_id_student_number('02')
-    select_student_all()
+    # select_student_all()
+    select_student_gender('男')
