@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
-from django.http import JsonResponse,HttpResponse
-from mysql import mysql_query
+from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
+from mysql import mysql_query, mysql_insert, mysql_update, mysql_delete
 import json
 
 
@@ -22,6 +22,11 @@ def login(request):
 def index(request):
     return render(request, 'index/index.html',)
 
+def add(request):
+    return render(request, 'add/add.html')
+
+def delete(request):
+    return render(request, 'delete/delete.html')
 
 
 def request_check(func):
@@ -137,6 +142,7 @@ def student_info_student_id(request):
             }
             return JsonResponse(data)
 
+
 @request_check
 def student_info_student_name(request):
     '''根据name查询学生信息'''
@@ -220,41 +226,50 @@ def student_info_student_departments(request):
 
 
 
-
-
-def student_info_name(request):
-    '''根据名字查询学生信息'''
+def student_add(request):
+    '''新增'''
+    student_id = request.POST.get('student_id')
     student_name = request.POST.get('student_name')
-    student_info = mysql_query.select_student_name(student_name)
-    if student_info == ():
+    gender = request.POST.get('gender')
+    birth = request.POST.get('birth')
+    departments = request.POST.get('departments')
+    address = request.POST.get('address')
+    db_student_id = mysql_query.select_student_information(student_id)
+    if student_id == None or student_name == None or gender == None or birth == None or departments == None or address == None:
         data = {
-            'msg': '学生姓名不存在',
-            'code': 21,
+            "errCode": "50",
+            "errDesc": "请求信息错误"
+        }
+        return JsonResponse(data)
+    if db_student_id != ():
+        data = {
+            "errCode": "60",
+            "errDesc": "学号已存在"
         }
         return JsonResponse(data)
     else:
+        mysql_insert.insert_student_information(student_name, student_id, gender, birth, departments, address)
         data = {
             "errCode": "0",
-            "errDesc": "操作成功",
-            "data": student_info
+            "errDesc": "操作成功"
         }
         return JsonResponse(data)
 
 
-def student_info_address(request):
-    '''根据地址查询学生信息'''
-    student_address = request.POST.get('student_address')
-    student_info = mysql_query.select_student_address(student_address)
-    if student_info == ():
+def student_delete(request):
+    '''删除'''
+    student_id = request.POST.get('student_id')
+    db_student_id = mysql_query.select_student_information(student_id)
+    if db_student_id == ():
         data = {
-            'msg': '地区不存在',
-            'code': 30,
+            "errCode": "20",
+            "errDesc": "学生学号不存在",
         }
         return JsonResponse(data)
     else:
+        mysql_delete.delete_student_information(student_id)
         data = {
-            'msg': '成功',
-            'code': 200,
-            'data': student_info
+            "errCode": "0",
+            "errDesc": "操作成功"
         }
         return JsonResponse(data)

@@ -1,22 +1,37 @@
 import requests
 import json
 def post():
-    join_url = 'student_all'
+    # join_url = 'student_all'
     # join_url = 'login_check'
     # join_url = 'student_info'
-    utl = 'http://127.0.0.1:8000/api/' + join_url
+    join_url = 'student_add'
+    utl = 'http://127.0.0.1:8000/' + join_url
+    print(utl)
     headers = {
         # "Content-Type": "application/form-data",
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'
     }
 
-    data = {
-        "username": "",
-        "password": "1",
-        "student_id": "666",
-        "student_name": '张三',
-        "student_address": "成都"
 
+
+    data = {}
+    # data = {
+    #     "username": "",
+    #     "password": "1",
+    #     "student_id": "666",
+    #     "student_name": '张三',
+    #     "student_address": "成都"
+    #
+    # }
+
+
+    data = {
+        'student_name': '1',
+        'student_id': '1',
+        'gender': '1',
+        'birth': '1',
+        'departments': '1',
+        'address': '1'
     }
     # data = {'student_address': '成都'}
 
@@ -58,7 +73,7 @@ def put():
 # a =  "1'1'1'1'1"
 # c = a.replace('\'','\"')
 # print(c)
-# if __name__ == '__main__':
-#    post()
-   # get()
-   # put()
+if __name__ == '__main__':
+   post()
+# #    # get()
+# #    # put()

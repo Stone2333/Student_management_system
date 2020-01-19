@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增</title>
+    <script src="/static/js/jQuery-3.4.1.js"></script>
+    <script>
+         $(function () {
+            $('#studentadd').click(function () {
+               // 获取用户名和密码username = $('#username').val()
+                    student_name = $('#student_name').val()
+                    student_id = $('#student_id').val()
+                    gender = $('#gender').val()
+                    birth = $('#birth').val()
+                    departments = $('#departments').val()
+                    address = $('#address').val()
+                    $.ajax({
+                    'url':'/student_add',
+                    'type':'post',
+                    'data':{'student_name':student_name,
+                        'student_id': student_id,
+                        'gender':gender,
+                        'birth':birth,
+                        'departments' : departments,
+                        'address' : address
+                    },
+                    'dataType':'json',
+                    success:data =>{
+                        if (data.errCode == "0"){
+                            $('#errmsg').show().html(data.errDesc)
+                            location.href = '/index'
+                        }else if(data.errCode == "60"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else {
+                            $('#errmsg').show().html(data.errDesc)
+                        }
+                    }
+                }
+                )}
+                )}
+                )
+        $(function () {
+             $('#studentadd').click(function () {
+                location.href = '/index'
+
+
+        })})
+    </script>
+</head>
+<body>
+<h1>新增</h1>
+<div>
+    学号:<input type="text" id="student_id"><br/>
+    姓名:<input type="text" id="student_name"><br/>
+    性别:<input type="text" id="gender"><br/>
+    出生年:<input type="text" id="birth"><br/>
+    院系:<input type="text" id="departments"><br/>
+    地址：<input type="text" id="address"><br/>
+    <input type="button" id="studentadd" value="添加">
+    <input type="button" id="cancel" value="取消">
+    <div id="errmsg"></div>
+</div>
+</body>
+</html>

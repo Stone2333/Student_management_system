@@ -12,8 +12,6 @@
                 'data':{},
                 'dataType':'json',
                 success:data =>{
-                    // 登录成功{'res':1}
-                    // 登录失败{'res':0}
                     if (data.errCode == "0"){
                         c = data.data
                         for(i = 0; i < c.length; i++){
@@ -23,7 +21,8 @@
                             birth = c[i]['birth']
                             departments = c[i]['departments']
                             address = c[i]['address']
-                            option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address +'</div>'
+                            option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address + '<a href = "javascript:void(0)" '+
+					'onclick = "delete1(\'' + student_id + '\')">删除</a>'+'</div>'
                             $('#errmsg').append(option_str)
                             $('#errmsg').show().html()
                             // console.log(option_str)
@@ -35,7 +34,31 @@
                 }
             })
         })
+         function delete1(student_id) {
+            console.log(student_id)
+             $.ajax({
+                    'url':'/student_delete',
+                    'type':'post',
+                    'data':{'student_id':student_id},
+                    'dataType':'json',
+                    success:data =>{
+                        // 登录成功{'res':1}
+                        // 登录失败{'res':0}
 
+                        if (data.errCode == "0"){
+                            $('#errmsg').show().html()
+                            // console.log(option_str)
+
+                        }else if(data.errCode == "20"){
+                            $('#errmsg').show().html(data.errDesc)
+                        } else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                })
+
+         }
 
          $(function () {
             $('#btnLogin').click(function () {
@@ -232,9 +255,14 @@
             color: rgba(0, 0, 0, 0.99);
         }
     </style>
+
+
 </head>
 <body>
 <h1>首页</h1>
+<a href="/add">新增</a>
+<a href="/delete">删除</a>
+
 <div>
     <select id = 'type'>
   <option value="student_id">学号</option>

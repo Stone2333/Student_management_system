@@ -21,7 +21,7 @@ def insert_student_information(student_name, student_id, gender, birth, departme
           VALUES ("{}", "{}", "{}", "{}", "{}", "{}")
           '''.format(student_id, student_name, gender, birth, departments, address)
     insert(sql)
-    return print("新增姓名:" + student_name + '学生信息成功')
+    # return print("新增姓名:" + student_name + '学生信息成功')
 
 
 # 插入课程信息到科目信息表

@@ -10,6 +10,10 @@ urlpatterns = [
     url('student_student_name$', views.student_info_student_name),
     url('student_student_address$', views.student_info_student_address),
     url('student_student_departments$', views.student_info_student_departments),
+    url('^add$', views.add),
+    url('delete$', views.delete),
+    url('student_add$', views.student_add),
+    url('student_delete$', views.student_delete),
     # url('student_info_name$', views.student_info_name),
     # url('student_info_address$', views.student_info_address),
 
