@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改</title>
+    <script src="/static/js/jQuery-3.4.1.js"></script>
+    <script>
+        student('1')
+        function student(student) {
+            var student_info = student
+            $('#errmsg').html('')
+            $.ajax({
+                    'url':'/student_id',
+                    'type':'post',
+                    'data':{'student_id':student_info},
+                    'dataType':'json',
+                    success:data =>{
+                        if (data.errCode === "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                student_name = json[i]['student_name']
+                                student_id = json[i]['student_id']
+                                gender = json[i]['gender']
+                                birth = json[i]['birth']
+                                departments = json[i]['departments']
+                                address = json[i]['address']
+                               document.getElementById("student_id").value=student_id;
+                               document.getElementById("student_name").value=student_name;
+                               document.getElementById("birth").value= birth;
+                               document.getElementById("gender").value=gender;
+                               document.getElementById("departments").value=departments;
+                               document.getElementById("address").value=address;
+                             }
+                        }else if(data.errCode === "20"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else if(data.errCode === '50'){
+                            $('#errmsg').show().html(data.errDesc)
+                        } else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                })
+        }
+        $('#studentadd').click(function () {
+            function modify(student_id1) {
+                var student1 = student_id1
+                student_name = $('#student_name').val()
+                student_id = $('#student_id').val()
+                gender = $('#gender').val()
+                birth = $('#birth').val()
+                departments = $('#departments').val()
+                address = $('#address').val()
+                $.ajax({
+                    'url': '/student_modify',
+                    'type': 'post',
+                    'data': {'student_id': student1},
+                    'dataType': 'json',
+                    success: data => {
+                        if (data.errCode == "0") {
+                            $('#errmsg').show().html()
+                            all()
+                            // console.log(option_str)
+                        } else if (data.errCode == "20") {
+                            $('#errmsg').show().html(data.errDesc)
+                        } else {
+                            //跳转到首页
+                            location.href = '/index'
+                        }
+                    }
+                })
+            }
+        })
+    </script>
+</head>
+<body>
+<h1>修改页面</h1>
+<div>
+    学号:<input type="text" id="student_id" disabled="disabled" ><br/>
+    姓名:<input type="text" id="student_name"><br/>
+    性别:<input type="text" id="gender"><br/>
+    出生年:<input type="text" id="birth"><br/>
+    院系:<input type="text" id="departments"><br/>
+    地址：<input type="text" id="address"><br/>
+    <input type="button" id="studentadd" value="修改">
+    <input type="button" id="cancel" value="取消">
+    <div id="errmsg"></div>
+</div>
+</body>
+</html>

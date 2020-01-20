@@ -25,7 +25,8 @@
                             departments = c[i]['departments']
                             address = c[i]['address']
                             option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address + "--" + '<a href = "javascript:void(0)" '+
-					'onclick = "delete1(\'' + student_id + '\')">删除</a>'+'</div>'
+					'onclick = "delete1(\'' + student_id + '\')">删除</a>'+"---"+ '<a href = "/modify" '+
+					'onclick = "modify(\'' + student_id + '\')">修改</a>'+'</div>'
                             $('#errmsg').append(option_str)
                             $('#errmsg').show().html()
                             // console.log(option_str)
@@ -58,8 +59,10 @@
                         }
                     }
                 })
-
          }
+
+
+
          // 根据类型查询请求
          $(function () {
             $('#btnLogin').click(function () {
@@ -270,7 +273,9 @@
 
 </head>
 <body>
-<h1>首页</h1>
+<h1>首页</h1><br/>
+<h2><a href="111">学生信息</a>--<a href="111">课程信息</a>--<a href="111">成绩信息</a></h2>
+
 <a href="/add">新增</a>
 
 <div>

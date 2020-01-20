@@ -13,6 +13,7 @@ urlpatterns = [
     url('student_gender$', views.student_info_student_gender),
     url('student_birth$', views.student_info_student_birth),
     url('^add$', views.add),
+    url('^modify$', views.modify),
     # url('delete$', views.delete),
     url('student_add$', views.student_add),
     url('student_delete$', views.student_delete),

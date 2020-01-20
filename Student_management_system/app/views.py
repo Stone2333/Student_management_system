@@ -28,6 +28,9 @@ def add(request):
 def delete(request):
     return render(request, 'delete/delete.html')
 
+def modify(request):
+    return render(request, 'modify/modify.html')
+
 
 def request_check(func):
     '''请求装饰器，可改为中间件'''
@@ -323,3 +326,20 @@ def student_delete(request):
             "errDesc": "操作成功"
         }
         return JsonResponse(data)
+
+
+def student_modify(request):
+    '''根据学号修改学生信息'''
+    student_id = request.POST.get('student_id')
+    student_name = request.POST.get('student_name')
+    gender = request.POST.get('gender')
+    birth = request.POST.get('birth')
+    departments = request.POST.get('departments')
+    address = request.POST.get('address')
+    mysql_update.update_student_all(student_id, student_name, gender, birth, departments, address)
+
+    data = {
+        "errCode": "0",
+        "errDesc": "操作成功"
+    }
+    return JsonResponse(data)

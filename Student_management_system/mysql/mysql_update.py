@@ -14,6 +14,16 @@ def upadte(sql):
     db.close()
 
 
+# 根据学号更改所有内容
+def update_student_all(student_id, student_name, gender, birth, departments, address):
+    sql = '''
+          UPDATE student_information
+          SET student_name = "{student_name}", gender="{gender}", birth="{birth}", departments="{departments}", address="{address}"
+          WHERE student_id = "{student_id}"
+          '''.format(student_id=student_id, student_name=student_name, gender=gender, birth=birth, departments=departments, address=address)
+    upadte(sql)
+
+
 # 根据学号更改学号
 def update_student_id(student_id, new_student_id):
     sql = '''
@@ -133,4 +143,5 @@ def update_grade_grade(student_id, course_id, new_grade):
           '''.format(a=student_id, b=course_id, c=new_grade)
     upadte(sql)
     return print('学号:' + student_id + '成绩修改成功')
+
 
