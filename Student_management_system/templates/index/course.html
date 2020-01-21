@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程信息</title>
+    <script src="/static/js/jQuery-3.4.1.js"></script>
+    <script>
+        all()
+        // 获取所有课程信息
+        function all() {
+            $('#errmsg').html('')
+            $.ajax({
+                'url':'/course_all',
+                'type':'post',
+                'data':{},
+                'dataType':'json',
+                success:data =>{
+                    if (data.errCode == "0"){
+                        c = data.data
+                        for(i = 0; i < c.length; i++){
+                            course_title = c[i]['course_title']
+                            course_id = c[i]['course_id']
+                            option_str = '<div>'+"科目名称:" + course_title + " ,科目编号:" + course_id + "--" + '<a href = "javascript:void(0)" '+ 'onclick = "delete1(\'' + course_id + '\')">删除</a>'+ '</div>'
+                            $('#errmsg').append(option_str)
+                            $('#errmsg').show().html()
+                            // console.log(option_str)
+                            console.log(option_str)
+                        }
+                    } else {
+                            //跳转到首页
+                            location.href = '/course'
+                    }
+                }
+            })
+        }
+
+
+    $(function () {
+            $('#course_search').click(function () {
+                $('#errmsg').html('')
+                    course = $('#course').val()
+                    tpye = $('#type option:selected').val()
+                // 根据课程编号查询
+                if (tpye === 'course_id'){
+                    $.ajax({
+                    'url':'/course_id',
+                    'type':'post',
+                    'data':{'course_id':course},
+                    'dataType':'json',
+                    success:data =>{
+                        if (data.errCode === "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                course_title = json[i]['course_title']
+                                course_id = json[i]['course_id']
+                                option_str = '<div>'+"科目名称:" + course_title + " ,科目编号:" + course_id + "--" + '<a href = "javascript:void(0)" '+ 'onclick = "delete1(\'' + course_id + '\')">删除</a>'+ '</div>'
+                                $('#errmsg').append(option_str)
+                                $('#errmsg').show().html()
+                                console.log(option_str)
+                             }
+                        }else if(data.errCode === "20"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else if(data.errCode === "50"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else {
+                            //跳转到首页
+                            location.href = '/course'
+                        }
+                    }
+                })
+                    // 根据课程名称搜索请求
+                }else if(tpye === 'course_title'){
+                    $.ajax({
+                    'url':'/course_title',
+                    'type':'post',
+                    'data':{'course_title':course},
+                    'dataType':'json',
+                    success:data =>{
+                        if (data.errCode === "0"){
+                            json = data.data
+                            for(i = 0; i < json.length; i++){
+                                course_title = json[i]['course_title']
+                                course_id = json[i]['course_id']
+                                option_str = '<div>'+"科目名称:" + course_title + " ,科目编号:" + course_id + "--" + '<a href = "javascript:void(0)" '+ 'onclick = "delete1(\'' + course_id + '\')">删除</a>'+ '</div>'
+                                $('#errmsg').append(option_str)
+                                $('#errmsg').show().html()
+                                // console.log(option_str)
+                             }
+                        }else if(data.errCode === "25"){
+                            $('#errmsg').show().html(data.errDesc)
+                        }else if(data.errCode === "50") {
+                            $('#errmsg').show().html(data.errDesc)
+                        }else {
+                            location.href = '/course'
+                        }
+                    }
+                    })
+                }
+            })
+         })
+
+
+
+    </script>
+</head>
+<body>
+<h1>课程信息</h1>
+<h2><a href="/index">学生信息</a>--<a href="/course">课程信息</a>--<a href="111">成绩信息</a></h2>
+
+<a href="/add">新增</a>
+<div>
+    <select id = 'type'>
+  <option value="course_title">课程名称</option>
+  <option value="course_id">课程编号</option>
+    </select>
+    <input type="text" id="course">
+    <input type="button" id="course_search" value="搜索">
+    <div id="errmsg"></div>
+</div>
+</body>
+</html>

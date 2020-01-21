@@ -4,7 +4,8 @@ def post():
     # join_url = 'student_all'
     # join_url = 'login_check'
     # join_url = 'student_info'
-    join_url = 'student_add'
+    # join_url = 'student_add'
+    join_url = 'course_id'
     utl = 'http://127.0.0.1:8000/' + join_url
     print(utl)
     headers = {
@@ -14,7 +15,9 @@ def post():
 
 
 
-    data = {}
+    data = {
+        'course_id':'02'
+    }
     # data = {
     #     "username": "",
     #     "password": "1",
@@ -25,14 +28,14 @@ def post():
     # }
 
 
-    data = {
-        'student_name': '1',
-        'student_id': '1',
-        'gender': '1',
-        'birth': '1',
-        'departments': '1',
-        'address': '1'
-    }
+    # data = {
+    #     'student_name': '1',
+    #     'student_id': '1',
+    #     'gender': '1',
+    #     'birth': '1',
+    #     'departments': '1',
+    #     'address': '1'
+    # }
     # data = {'student_address': '成都'}
 
     response = requests.post(url=utl, headers=headers, data=data)

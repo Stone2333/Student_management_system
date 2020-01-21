@@ -31,6 +31,9 @@ def delete(request):
 def modify(request):
     return render(request, 'modify/modify.html')
 
+def course(request):
+    return render(request, 'index/course.html')
+
 
 def request_check(func):
     '''请求装饰器，可改为中间件'''
@@ -343,3 +346,70 @@ def student_modify(request):
         "errDesc": "操作成功"
     }
     return JsonResponse(data)
+
+
+def course_all(request):
+    '''获取所有课程信息'''
+    course_info = mysql_query.select_all_course_title()
+    data = {
+        "errCode": "0",
+        "errDesc": "操作成功",
+        "data": course_info
+    }
+    return JsonResponse(data)
+
+
+def course_course_id(request):
+    '''根据课程编号获取课程信息'''
+    course_id = request.POST.get('course_id')
+    if course_id == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        course_info = mysql_query.select_course_id(course_id)
+        print(course_info)
+        if course_info == ():
+            data = {
+                "errCode": "25",
+                "errDesc": "课程编号不存在",
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                "errCode": "0",
+                "errDesc": "操作成功",
+                "data": course_info
+            }
+            return JsonResponse(data)
+
+
+def course_course_title(request):
+    '''根据课程名称获取课程信息'''
+    course_title = request.POST.get('course_title')
+    if course_title == None:
+        data = {
+            "errCode": "50",
+            "errDesc": "请求信息错误",
+        }
+        return JsonResponse(data)
+    else:
+        course_info = mysql_query.select_course_title(course_title)
+        print(course_info)
+        if course_info == ():
+            data = {
+                "errCode": "26",
+                "errDesc": "课程编号不存在",
+            }
+            return JsonResponse(data)
+        else:
+            data = {
+                "errCode": "0",
+                "errDesc": "操作成功",
+                "data": course_info
+            }
+            return JsonResponse(data)
+
+

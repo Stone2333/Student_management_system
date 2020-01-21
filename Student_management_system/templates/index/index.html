@@ -16,14 +16,14 @@
                 'dataType':'json',
                 success:data =>{
                     if (data.errCode == "0"){
-                        c = data.data
-                        for(i = 0; i < c.length; i++){
-                            student_name = c[i]['student_name']
-                            student_id = c[i]['student_id']
-                            gender = c[i]['gender']
-                            birth = c[i]['birth']
-                            departments = c[i]['departments']
-                            address = c[i]['address']
+                        json = data.data
+                        for(i = 0; i < json.length; i++){
+                            student_name = json[i]['student_name']
+                            student_id = json[i]['student_id']
+                            gender = json[i]['gender']
+                            birth = json[i]['birth']
+                            departments = json[i]['departments']
+                            address = json[i]['address']
                             option_str = '<div>'+"学生姓名:" + student_name + ", 学号:" + student_id + ", 性别:" + gender + ", 出生年月日:" + birth + ', 院系:' + departments + ", 地址:" + address + "--" + '<a href = "javascript:void(0)" '+
 					'onclick = "delete1(\'' + student_id + '\')">删除</a>'+"---"+ '<a href = "/modify" '+
 					'onclick = "modify(\'' + student_id + '\')">修改</a>'+'</div>'
@@ -274,10 +274,9 @@
 </head>
 <body>
 <h1>首页</h1><br/>
-<h2><a href="111">学生信息</a>--<a href="111">课程信息</a>--<a href="111">成绩信息</a></h2>
+<h2><a href="/index">学生信息</a>--<a href="/course">课程信息</a>--<a href="111">成绩信息</a></h2>
 
 <a href="/add">新增</a>
-
 <div>
     <select id = 'type'>
   <option value="student_id">学号</option>
